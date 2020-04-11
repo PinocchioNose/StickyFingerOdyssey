@@ -8,6 +8,7 @@ public class CharacterMove : CharacterAction
     protected new void Start()
     {
         base.Start();
+
         if (CharacterTransform == null)
             CharacterTransform = gameObject.transform;
     }
@@ -20,6 +21,8 @@ public class CharacterMove : CharacterAction
         base.Update();
     }
 
+
+
     private void GetDirection()
     {
         #region move through keyboard
@@ -28,7 +31,7 @@ public class CharacterMove : CharacterAction
         speedBack = Vector3.zero;
         speedLeft = Vector3.zero;
         speedRight = Vector3.zero;
-        speedUp = Vector3.zero;
+        //speedUp = Vector3.zero;
         speedDown = Vector3.zero;
 
         // get keyboard input
@@ -36,6 +39,24 @@ public class CharacterMove : CharacterAction
         if (Input.GetKey(KeyCode.S)) speedBack = -CharacterTransform.forward;
         if (Input.GetKey(KeyCode.A)) speedLeft = -CharacterTransform.right;
         if (Input.GetKey(KeyCode.D)) speedRight = CharacterTransform.right;
+
+        if (Input.GetKey(KeyCode.Space) && !isJumping)
+        {
+            if(jumpStrength < maxStrength) ++jumpStrength;
+        }
+        else if (!Input.GetKey(KeyCode.Space) && jumpStrength > 10 && !isJumping)
+        {
+            isJumping = true;
+            initPosY = CharacterTransform.transform.position.y;
+
+            originJumpSpeed = jumpStrength / 20.0f;
+            //Debug.Log(CharacterTransform.up);
+            speedUp = CharacterTransform.up * (jumpStrength / 20.0f);
+            jumpStrength = 0;
+        }
+
+        
+
 
         direction = speedForward + speedBack + speedLeft + speedRight + speedUp + speedDown;
         #endregion

@@ -21,11 +21,16 @@ public class BaseAction : MonoBehaviour
     protected Vector3 speedDown;
     #endregion
 
+    // 模拟重力加速度
+    protected Vector3 grav = new Vector3(0, 9.8f, 0);
+    // 起始高度
+    protected float initPosY;
+
     // Start is called before the first frame update
     protected void Start()
     {
         CharacterTransform = GameObject.Find("BodyGuard_Test_Prefab").GetComponent<Transform>();
-
+        initPosY = CharacterTransform.transform.position.y;
     }
 
     // Update is called once per frame

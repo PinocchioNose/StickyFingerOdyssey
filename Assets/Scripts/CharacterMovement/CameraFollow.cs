@@ -21,9 +21,9 @@ public class CameraFollow : BaseAction
         TourCamera.RotateAround(TourCamera.position, Vector3.up, Input.GetAxis("Mouse X") * rotateSpeed * Time.deltaTime);
         TourCamera.RotateAround(TourCamera.position, TourCamera.right, -Input.GetAxis("Mouse Y") * rotateSpeed * Time.deltaTime);
 
+        //抬升摄像机
+        relative_pos -= new Vector3(0.0f, Input.GetAxis("Mouse Y"), 0.0f)*Time.deltaTime*5.0f;
         //Vector3 after_rotate = V3RotateAround(relative_pos, TourCamera.right, -Input.GetAxis("Mouse Y") * rotateSpeed * Time.deltaTime);
-        //Debug.Log("after_rotate" + after_rotate);
-        //Debug.Log("angle: " + -Input.GetAxis("Mouse Y") * rotateSpeed * Time.deltaTime);
         Vector3 TargetCameraPosition = CharacterTransform.TransformPoint(relative_pos);//获取相机跟随的相对位置，再转为世界坐标
 
         TourCamera.position = Vector3.SmoothDamp(

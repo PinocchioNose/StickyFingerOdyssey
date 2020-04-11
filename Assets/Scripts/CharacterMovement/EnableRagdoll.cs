@@ -12,11 +12,22 @@ public class EnableRagdoll : MonoBehaviour
         {
             rb.isKinematic = newValue;
         }
+        //Rigidbody[] armL = GameObject.Find("LeftArm").GetComponentsInChildren<Rigidbody>();
+        //foreach (var rb in armL)
+        //{
+        //    rb.isKinematic = false;
+        //}
+        //Rigidbody[] armR = GameObject.Find("RightArm").GetComponentsInChildren<Rigidbody>();
+        //foreach (var rb in armR)
+        //{
+        //    rb.isKinematic = false;
+        //}
     }
     
     void Start()
     {
         setKinematic(true);
+        
 
     }
 
