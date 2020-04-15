@@ -9,6 +9,8 @@ public class BaseAction : MonoBehaviour
     #region 人物移动参数
     public float moveSpeed = 1.0f;
     public float rotateSpeed = 90.0f;
+    public float elongSpeed; //手臂延展速度
+    public float maxArmRange; // 手臂延展范围
     #endregion
 
     #region 运动速度和其每个方向的速度分量
