@@ -32,7 +32,7 @@ public class CameraFollow : BaseAction
         //TourCamera.RotateAround(TourCamera.position, TourCamera.right, -Input.GetAxis("Mouse Y") * rotateSpeed * Time.deltaTime);
 
         var YAxis_Input = Input.GetAxis("Mouse Y");
-        Debug.Log("YAxis_Input = " + YAxis_Input);
+        //Debug.Log("YAxis_Input = " + YAxis_Input);
         //抬升摄像机
         relative_pos -= new Vector3(0.0f, YAxis_Input, 0.0f) * Time.deltaTime;
         if (relative_pos.y > CameraUpAndDown_max)

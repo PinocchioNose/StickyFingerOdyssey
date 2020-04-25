@@ -36,6 +36,16 @@ public class Controller : MonoBehaviour
     private bool isJumping;
     #endregion
 
+    [Space(20)]
+    public float maxArmRange;
+    private float armRange;
+    public GameObject leftArm2;
+    public float elongSpeed;
+
+    [Space(20)]
+    public float rotateSpeed = 90.0f;
+    public GameObject fatherArm;
+
     //void OnCollisionEnter(Collision col)
     //{
     //    if (col.relativeVelocity.magnitude > Resist) 
@@ -50,6 +60,37 @@ public class Controller : MonoBehaviour
     //        Morto = true;
     //    }
     //}
+    protected void handCtrl()
+    {
+        //手臂延长
+        //用肩膀到前臂的伸长线去做
+        if (Input.GetMouseButton(0))
+        {
+            if (armRange <= maxArmRange)
+            {
+                leftArm2.transform.Translate(new Vector3(0,1,0)
+                    * elongSpeed * Time.deltaTime, Space.Self);
+
+                armRange += elongSpeed * Time.deltaTime;
+                //Debug.Log(armRange);
+            }
+
+        }
+        else
+        {
+            if (armRange > 0)
+            {
+
+                leftArm2.transform.Translate(new Vector3(0, 1, 0)
+                    * -elongSpeed * Time.deltaTime, Space.Self);
+                armRange -= elongSpeed * Time.deltaTime;
+                //Debug.Log(armRange);
+            }
+        }
+
+
+
+    }
 
     void ChargeJump()
     {
@@ -65,6 +106,7 @@ public class Controller : MonoBehaviour
         {
             isJumping = true;
             jump_vector = new Vector3(0, jump_force, 0);
+            jump_vector += this.transform.forward * 1.0f;
         }
         
     }
@@ -73,7 +115,7 @@ public class Controller : MonoBehaviour
     {
         if (isJumping)
         {
-            rb.AddForce(jump_vector, ForceMode.Impulse);
+            rb.AddForce(jump_vector * 1.5f, ForceMode.Impulse);
             isJumping = false;
             jump_force = 0;
         }
@@ -114,6 +156,10 @@ public class Controller : MonoBehaviour
         hj2.spring = hs2;
     }
 
+    protected void shoulderCtrl()
+    {
+        fatherArm.transform.Rotate(new Vector3(0.0f, 0.0f, -Input.GetAxis("Mouse Y") * rotateSpeed * Time.deltaTime));
+    }
 
     void Start()
     {
@@ -123,6 +169,8 @@ public class Controller : MonoBehaviour
 
         hs1 = hj1.spring;
         hs2 = hj2.spring;
+
+        armRange = 0.0f;
     }
 
 
@@ -138,8 +186,9 @@ public class Controller : MonoBehaviour
 
             // Ctrl
             MoveCtrl();
-
+            handCtrl();
             JumpCtrl();
+            shoulderCtrl();
         }
         
 

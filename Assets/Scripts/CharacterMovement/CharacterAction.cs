@@ -103,8 +103,8 @@ public class CharacterAction : BaseAction
         rightShoul = GameObject.Find("RightShoulder");
         myCamera = GameObject.Find("Tour Camera");
 
-        Debug.Log(leftForeArm.transform.forward);
-        Debug.Log(rightForeArm.transform.forward);
+        //Debug.Log(leftForeArm.transform.forward);
+        //Debug.Log(rightForeArm.transform.forward);
 
 
         lastTime = Time.time;

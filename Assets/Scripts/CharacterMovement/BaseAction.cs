@@ -31,7 +31,7 @@ public class BaseAction : MonoBehaviour
     // Start is called before the first frame update
     protected void Start()
     {
-        CharacterTransform = GameObject.Find("BodyGuard_Test_Prefab").GetComponent<Transform>();
+        //CharacterTransform = GameObject.Find("BodyGuard_Test_Prefab").GetComponent<Transform>();
         initPosY = CharacterTransform.transform.position.y;
     }
 
