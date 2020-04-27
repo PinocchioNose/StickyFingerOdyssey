@@ -44,7 +44,8 @@ public class Controller : MonoBehaviour
 
     [Space(20)]
     public float rotateSpeed = 90.0f;
-    public GameObject fatherArm;
+    public GameObject fatherArm1;
+    public GameObject fatherArm2;
 
     //void OnCollisionEnter(Collision col)
     //{
@@ -64,7 +65,7 @@ public class Controller : MonoBehaviour
     {
         //手臂延长
         //用肩膀到前臂的伸长线去做
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(1))
         {
             if (armRange <= maxArmRange)
             {
@@ -158,7 +159,8 @@ public class Controller : MonoBehaviour
 
     protected void shoulderCtrl()
     {
-        fatherArm.transform.Rotate(new Vector3(0.0f, 0.0f, -Input.GetAxis("Mouse Y") * rotateSpeed * Time.deltaTime));
+        fatherArm1.transform.Rotate(new Vector3(0.0f, 0.0f, -Input.GetAxis("Mouse Y") * rotateSpeed * Time.deltaTime));
+        fatherArm2.transform.Rotate(new Vector3(0.0f, 0.0f, Input.GetAxis("Mouse Y") * rotateSpeed * Time.deltaTime));
     }
 
     void Start()

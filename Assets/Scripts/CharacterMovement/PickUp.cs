@@ -16,16 +16,16 @@ public class PickUp : MonoBehaviour
         if(collision.gameObject.tag == "pickable")
         {
             Debug .Log("collision happened!");
-            this.GetComponents<SpringJoint>()[1].connectedBody = collision.gameObject.GetComponent<Rigidbody>();
+            this.GetComponent<FixedJoint>().connectedBody = collision.gameObject.GetComponent<Rigidbody>();
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetMouseButtonDown(1))
+        if(Input.GetKeyDown(KeyCode.F))
         {
-            this.GetComponents<SpringJoint>()[1].connectedBody = null;
+            this.GetComponent<FixedJoint>().connectedBody = null;
             //Debug.Log("release");
         }
     }
