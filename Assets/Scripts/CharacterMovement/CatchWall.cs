@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class CatchWall : MonoBehaviour
 {
+
+    // 标记脚本是否起作用的变量，通过一个函数对外提供接口
+    private bool isRejecting;
     public enum flyStatus
     {
         away,
@@ -46,6 +49,7 @@ public class CatchWall : MonoBehaviour
         originPos = this.transform.localPosition;
         lastPos = originPos;
         originRotate = this.transform.localRotation;
+        isRejecting = false;
         //lastTimeCata = Time.time;
     }
 
@@ -62,7 +66,11 @@ public class CatchWall : MonoBehaviour
     //建立勾爪锚点
     void OnCollisionEnter(Collision col)
     {
-        if(catchlock)
+        if(isRejecting)
+        {
+            return;
+        }
+        if (catchlock)
         {
             if (col.gameObject.tag == "catchable")
             {
@@ -78,8 +86,8 @@ public class CatchWall : MonoBehaviour
 
             }
         }
-        
-            
+
+
     }
     
     //朝向手臂勾住的点弹射
@@ -99,7 +107,15 @@ public class CatchWall : MonoBehaviour
         
     }
 
-    void retrieve()
+    public void setReject(bool sta)
+    {
+        isRejecting = sta;
+    }
+
+
+    
+
+    public void retrieve()
     {
         //float dist = (this.transform.localPosition - originPos).magnitude;
         if(status == flyStatus.approach)
@@ -140,31 +156,45 @@ public class CatchWall : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        retrieveMonitor();
-        //retrieve();
-        if(Input.GetMouseButtonDown(0))
+        if(!isRejecting)
         {
-            //发射勾爪
-            Rigidbody rb = this.GetComponent<Rigidbody>();
-            rb.isKinematic = false;
-            rb.AddForce(this.transform.up * strength, ForceMode.Impulse);
-        }
-        if (Input.GetMouseButtonDown(0) && this.GetComponent<FixedJoint>() != null)
-        {
-            catchlock = false;
-            if(this.GetComponent<FixedJoint>() != null)
+            retrieveMonitor();
+            //retrieve();
+            if (Input.GetMouseButtonDown(0))
             {
-                Destroy(this.GetComponent<FixedJoint>());
+                //发射勾爪
+                Rigidbody rb = this.GetComponent<Rigidbody>();
+                rb.isKinematic = false;
+                rb.AddForce(this.transform.up * strength, ForceMode.Impulse);
             }
-            else
+            if (Input.GetMouseButtonDown(0) && this.GetComponent<FixedJoint>() != null)
             {
-                Debug.Log("Fixed Joint doesn't exist!");
-            }
+                catchlock = false;
+                if (this.GetComponent<FixedJoint>() != null)
+                {
+                    Destroy(this.GetComponent<FixedJoint>());
+                }
+                else
+                {
+                    // Debug.Log("Fixed Joint doesn't exist!");
+                }
 
+            }
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                catapult();
+            }
         }
-        if(Input.GetKeyDown(KeyCode.Space))
+        else
         {
-            catapult();
+            if(status != flyStatus.standBy)
+            {
+                this.GetComponent<Rigidbody>().isKinematic = true;
+                transform.localRotation = Quaternion.Slerp(transform.localRotation, originRotate, rotateSpeed * Time.deltaTime);
+                transform.localPosition = Vector3.Lerp(transform.localPosition, originPos, retrieveSpeed * Time.deltaTime);
+                catchlock = true;
+            }
+            
         }
     }
 }

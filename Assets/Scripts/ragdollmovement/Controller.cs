@@ -61,37 +61,37 @@ public class Controller : MonoBehaviour
     //        Morto = true;
     //    }
     //}
-    protected void handCtrl()
-    {
-        //手臂延长
-        //用肩膀到前臂的伸长线去做
-        if (Input.GetMouseButton(1))
-        {
-            if (armRange <= maxArmRange)
-            {
-                leftArm2.transform.Translate(new Vector3(0,1,0)
-                    * elongSpeed * Time.deltaTime, Space.Self);
+    //protected void handCtrl()
+    //{
+    //    //手臂延长
+    //    //用肩膀到前臂的伸长线去做
+    //    if (Input.GetMouseButton(1))
+    //    {
+    //        if (armRange <= maxArmRange)
+    //        {
+    //            leftArm2.transform.Translate(new Vector3(0,1,0)
+    //                * elongSpeed * Time.deltaTime, Space.Self);
 
-                armRange += elongSpeed * Time.deltaTime;
-                //Debug.Log(armRange);
-            }
+    //            armRange += elongSpeed * Time.deltaTime;
+    //            //Debug.Log(armRange);
+    //        }
 
-        }
-        else
-        {
-            if (armRange > 0)
-            {
+    //    }
+    //    else
+    //    {
+    //        if (armRange > 0)
+    //        {
 
-                leftArm2.transform.Translate(new Vector3(0, 1, 0)
-                    * -elongSpeed * Time.deltaTime, Space.Self);
-                armRange -= elongSpeed * Time.deltaTime;
-                //Debug.Log(armRange);
-            }
-        }
+    //            leftArm2.transform.Translate(new Vector3(0, 1, 0)
+    //                * -elongSpeed * Time.deltaTime, Space.Self);
+    //            armRange -= elongSpeed * Time.deltaTime;
+    //            //Debug.Log(armRange);
+    //        }
+    //    }
 
 
 
-    }
+    //}
 
     void ChargeJump()
     {
@@ -188,7 +188,7 @@ public class Controller : MonoBehaviour
 
             // Ctrl
             MoveCtrl();
-            handCtrl();
+            //handCtrl();
             JumpCtrl();
             shoulderCtrl();
         }
