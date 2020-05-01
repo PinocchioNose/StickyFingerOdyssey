@@ -942,6 +942,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fc8c243ae8cd7c47be33575d7d0c506, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxArmRange: 1.3
+  leftArm2: {fileID: 139395332}
+  elongSpeed: 1
 --- !u!1001 &141529158
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1875,6 +1878,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fc8c243ae8cd7c47be33575d7d0c506, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxArmRange: 0
+  leftArm2: {fileID: 0}
+  elongSpeed: 0
 --- !u!138 &378956924
 FixedJoint:
   m_ObjectHideFlags: 0
@@ -2375,6 +2381,7 @@ GameObject:
   - component: {fileID: 601858197}
   - component: {fileID: 601858194}
   - component: {fileID: 601858198}
+  - component: {fileID: 601858199}
   - component: {fileID: 601858196}
   - component: {fileID: 601858195}
   m_Layer: 8
@@ -2425,8 +2432,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.033900075, y: 0.019098394, z: 0.026729919}
-  m_Center: {x: -0.00026931986, y: 0.009549197, z: -0.000040628016}
+  m_Size: {x: 0.029214049, y: 0.019098394, z: 0.026729919}
+  m_Center: {x: 0.0005429687, y: 0.009549197, z: -0.000040628172}
 --- !u!4 &601858197
 Transform:
   m_ObjectHideFlags: 0
@@ -2472,6 +2479,20 @@ MonoBehaviour:
   rotateSpeed: 180
   fatherArm1: {fileID: 760800122}
   fatherArm2: {fileID: 2002572239}
+--- !u!114 &601858199
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 601858193}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9deb4929290a0842adec284482c1379, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leftArm: {fileID: 408816918}
+  rightArm: {fileID: 139395332}
 --- !u!1 &719569373 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100118, guid: c262a2c64672cf24eb41ba8f5fbb2695,
@@ -3549,6 +3570,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fc8c243ae8cd7c47be33575d7d0c506, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxArmRange: 0
+  leftArm2: {fileID: 0}
+  elongSpeed: 0
 --- !u!138 &1257714591
 FixedJoint:
   m_ObjectHideFlags: 0
@@ -4137,8 +4161,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.033900075, y: 0.034361444, z: 0.024348285}
-  m_Center: {x: -0.00026931986, y: 0.017180718, z: -0.000040626153}
+  m_Size: {x: 0.027706182, y: 0.034361444, z: 0.024348285}
+  m_Center: {x: -0.0005226316, y: 0.017180718, z: -0.00004062581}
 --- !u!4 &1510143082
 Transform:
   m_ObjectHideFlags: 0

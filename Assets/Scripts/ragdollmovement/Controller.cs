@@ -159,8 +159,26 @@ public class Controller : MonoBehaviour
 
     protected void shoulderCtrl()
     {
-        fatherArm1.transform.Rotate(new Vector3(0.0f, 0.0f, -Input.GetAxis("Mouse Y") * rotateSpeed * Time.deltaTime));
-        fatherArm2.transform.Rotate(new Vector3(0.0f, 0.0f, Input.GetAxis("Mouse Y") * rotateSpeed * Time.deltaTime));
+        //Debug.Log("Shoulder~");
+        Vector3 temp = fatherArm1.transform.localEulerAngles;
+        if(temp.z < 30 && Input.GetAxis("Mouse Y") < 0)
+        {
+            fatherArm1.transform.Rotate(new Vector3(0.0f, 0.0f, -Input.GetAxis("Mouse Y") * rotateSpeed * Time.deltaTime));
+            fatherArm2.transform.Rotate(new Vector3(0.0f, 0.0f, Input.GetAxis("Mouse Y") * rotateSpeed * Time.deltaTime));
+        }
+        else if(temp.z > 150 && Input.GetAxis("Mouse Y") > 0)
+        {
+            fatherArm1.transform.Rotate(new Vector3(0.0f, 0.0f, -Input.GetAxis("Mouse Y") * rotateSpeed * Time.deltaTime));
+            fatherArm2.transform.Rotate(new Vector3(0.0f, 0.0f, Input.GetAxis("Mouse Y") * rotateSpeed * Time.deltaTime));
+        }
+        else if(temp.z >=30 && temp.z <=150)
+        {
+            fatherArm1.transform.Rotate(new Vector3(0.0f, 0.0f, -Input.GetAxis("Mouse Y") * rotateSpeed * Time.deltaTime));
+            fatherArm2.transform.Rotate(new Vector3(0.0f, 0.0f, Input.GetAxis("Mouse Y") * rotateSpeed * Time.deltaTime));
+        }
+        
+        
+        
     }
 
     void Start()
