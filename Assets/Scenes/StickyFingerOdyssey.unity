@@ -586,6 +586,8 @@ MonoBehaviour:
   character_transform: {fileID: 601858197}
   CameraUpAndDown_min: -0.1
   CameraUpAndDown_max: 0.25
+  relative_radius: 0.25
+  camera_FOV: 45
 --- !u!1 &57207782
 GameObject:
   m_ObjectHideFlags: 0
@@ -631,7 +633,7 @@ HingeJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.000000013778199, y: 0.02136872, z: 0.000000007037758}
+  m_ConnectedAnchor: {x: -0.0000000073731563, y: 0.021368708, z: 0.0000000070377575}
   m_UseSpring: 1
   m_Spring:
     spring: 600
@@ -917,7 +919,7 @@ SpringJoint:
   m_ConnectedBody: {fileID: 2033496954}
   m_Anchor: {x: 0, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.000000018626451, y: 0.02302245, z: 0.000000005509931}
+  m_ConnectedAnchor: {x: 0.00000002607703, y: 0.023022449, z: -0.0000000056659397}
   serializedVersion: 2
   m_Spring: 10
   m_Damper: 0.2
@@ -1460,7 +1462,7 @@ HingeJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.009113896, y: 0.0047632568, z: -0.00011735782}
+  m_ConnectedAnchor: {x: 0.009113884, y: 0.004763261, z: -0.00011736946}
   m_UseSpring: 1
   m_Spring:
     spring: 600
@@ -1572,7 +1574,7 @@ HingeJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.000000013778199, y: 0.016396306, z: 0.0000000129064865}
+  m_ConnectedAnchor: {x: 0.000000002656505, y: 0.016396318, z: -0.000000005719964}
   m_UseSpring: 1
   m_Spring:
     spring: 600
@@ -1939,7 +1941,7 @@ SpringJoint:
   m_ConnectedBody: {fileID: 310892159}
   m_Anchor: {x: 0, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.000000029653949, y: 0.023022434, z: -0.000000013925581}
+  m_ConnectedAnchor: {x: -0.000000037104535, y: 0.02302242, z: -0.0000000120629355}
   serializedVersion: 2
   m_Spring: 15
   m_Damper: 0.2
@@ -2317,7 +2319,7 @@ HingeJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.000000013317631, y: 0.035399884, z: 0.000000008223227}
+  m_ConnectedAnchor: {x: 0.000000011454997, y: 0.035399884, z: 0.0000000082297555}
   m_UseSpring: 1
   m_Spring:
     spring: 30
@@ -2441,7 +2443,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 601858193}
-  m_LocalRotation: {x: 0.7071069, y: 0, z: -0, w: 0.7071067}
+  m_LocalRotation: {x: 0.70759034, y: 0, z: -0, w: 0.7066229}
   m_LocalPosition: {x: 0, y: -0.0114, z: 0.0557}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -2577,7 +2579,7 @@ SpringJoint:
   m_ConnectedBody: {fileID: 289953996}
   m_Anchor: {x: 0, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.017219363, y: 0.017965093, z: 0.000036123474}
+  m_ConnectedAnchor: {x: -0.017219357, y: 0.017965104, z: 0.000036116024}
   serializedVersion: 2
   m_Spring: 10
   m_Damper: 0.2
@@ -2988,7 +2990,7 @@ HingeJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.000000009527028, y: 0.035399884, z: -0.000000010404604}
+  m_ConnectedAnchor: {x: 0.000000008693636, y: 0.035399884, z: 0.000000017538165}
   m_UseSpring: 1
   m_Spring:
     spring: 30
@@ -3654,7 +3656,7 @@ HingeJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.009715957, y: 0.0047632605, z: -0.00011736248}
+  m_ConnectedAnchor: {x: -0.00971597, y: 0.004763261, z: -0.000117378775}
   m_UseSpring: 1
   m_Spring:
     spring: 600
@@ -4126,7 +4128,7 @@ HingeJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.000000013778199, y: 0.01909839, z: 0.000000011175871}
+  m_ConnectedAnchor: {x: -0.0000000023079838, y: 0.019098379, z: 0.0000000037252903}
   m_UseSpring: 1
   m_Spring:
     spring: 600
@@ -5083,7 +5085,7 @@ SpringJoint:
   m_ConnectedBody: {fileID: 289953996}
   m_Anchor: {x: 0, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.016680708, y: 0.017965078, z: 0.0000361123}
+  m_ConnectedAnchor: {x: 0.016680714, y: 0.017965104, z: 0.000036104848}
   serializedVersion: 2
   m_Spring: 10
   m_Damper: 0.2

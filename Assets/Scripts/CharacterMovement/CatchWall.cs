@@ -193,6 +193,11 @@ public class CatchWall : MonoBehaviour
                 transform.localRotation = Quaternion.Slerp(transform.localRotation, originRotate, rotateSpeed * Time.deltaTime);
                 transform.localPosition = Vector3.Lerp(transform.localPosition, originPos, retrieveSpeed * Time.deltaTime);
                 catchlock = true;
+
+                if (this.GetComponent<FixedJoint>() != null)
+                {
+                    Destroy(this.GetComponent<FixedJoint>());
+                }
             }
             
         }

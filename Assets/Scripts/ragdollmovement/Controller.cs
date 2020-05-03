@@ -107,7 +107,7 @@ public class Controller : MonoBehaviour
         {
             isJumping = true;
             jump_vector = new Vector3(0, jump_force, 0);
-            jump_vector += this.transform.forward * 1.0f;
+            jump_vector += this.transform.forward * 10.0f;
         }
         
     }
