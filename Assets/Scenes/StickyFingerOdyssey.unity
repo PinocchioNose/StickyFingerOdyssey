@@ -584,10 +584,10 @@ MonoBehaviour:
   maxArmRange: 10
   CameraSmoothTime: 0.15
   character_transform: {fileID: 601858197}
-  CameraUpAndDown_min: -0.1
-  CameraUpAndDown_max: 0.25
-  relative_radius: 0.25
-  camera_FOV: 45
+  semi_major_Axis: 0.25
+  semi_minor_Axis_under: 0.1
+  semi_minor_Axis_above: 0.2
+  camera_FOV: 60
 --- !u!1 &57207782
 GameObject:
   m_ObjectHideFlags: 0
