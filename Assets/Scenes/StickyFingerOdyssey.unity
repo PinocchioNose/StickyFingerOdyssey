@@ -493,6 +493,7 @@ GameObject:
   - component: {fileID: 45767411}
   - component: {fileID: 45767410}
   - component: {fileID: 45767413}
+  - component: {fileID: 45767414}
   m_Layer: 0
   m_Name: Tour Camera
   m_TagString: MainCamera
@@ -588,6 +589,25 @@ MonoBehaviour:
   semi_minor_Axis_under: 0.1
   semi_minor_Axis_above: 0.2
   camera_FOV: 60
+--- !u!114 &45767414
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 45767409}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0ab7745483b4c84db646909cd99a6a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  default_material: {fileID: 2100000, guid: 4cd56fd57ddc8474fb104894325ad494, type: 2}
+  highlight_material: {fileID: 2100000, guid: fd4a46cf4748fe042b4a9175f6dd9d28, type: 2}
+  offset_ratio: 0.1
+  k: 2000
+  start: 70
+  end: 25
+  segment_number: 210
 --- !u!1 &57207782
 GameObject:
   m_ObjectHideFlags: 0

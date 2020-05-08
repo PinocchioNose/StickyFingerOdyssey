@@ -28,12 +28,13 @@ public class Controller : MonoBehaviour
     // public float slope; 
     // private float pretime; 
     #region jump
-    public float Y_Force_Max = 150;
-    private float jump_force = 0;
+    static public float Y_Force_Max = 150;
+    static public float jump_force = 0;
     private float y_jump_force = 0;
     private float x_jump_force = 0;
     private Vector3 jump_vector;
     private bool isJumping;
+    static public bool isCharging = false; // use for charge jump UI
     #endregion
 
     [Space(20)]
@@ -100,12 +101,14 @@ public class Controller : MonoBehaviour
         {
             if (jump_force < Y_Force_Max)
                 ++jump_force;
+            isCharging = true;
             //Debug.Log("jump_force = " + jump_force);
         }
 
         if (!Input.GetKey(KeyCode.Space) && jump_force!=0 && !isJumping)
         {
-            isJumping = true;
+            isJumping = true; 
+            isCharging = false;
             jump_vector = new Vector3(0, jump_force, 0);
             jump_vector += this.transform.forward * 10.0f;
         }
@@ -181,7 +184,7 @@ public class Controller : MonoBehaviour
         
     }
 
-    void Start()
+    protected void Start()
     {
         _Velocity = GetComponent<Rigidbody>().velocity.magnitude;
         rb = GetComponent<Rigidbody>();
