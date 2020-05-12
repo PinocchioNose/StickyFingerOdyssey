@@ -28,7 +28,9 @@ public class Controller : MonoBehaviour
     // public float slope; 
     // private float pretime; 
     #region jump
-    static public float Y_Force_Max = 150;
+    public float Y_Force_Max = 100;
+    [Tooltip("向上跳跃的力相对于向前跳跃的力的比例")] [Range(0, 2)]
+    public float Ratio = 0.8f;
     static public float jump_force = 0;
     private float y_jump_force = 0;
     private float x_jump_force = 0;
@@ -109,8 +111,8 @@ public class Controller : MonoBehaviour
         {
             isJumping = true; 
             isCharging = false;
-            jump_vector = new Vector3(0, jump_force, 0);
-            jump_vector += this.transform.forward * 10.0f;
+            jump_vector = new Vector3(0, jump_force * Ratio, 0);
+            jump_vector += this.transform.forward * jump_force;
         }
         
     }

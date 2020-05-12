@@ -20,6 +20,7 @@ public class JumpUI : MonoBehaviour
     private Vector3 screen_center;
     private Vector3[] left_points;
     private Vector3[] right_points;
+    private Controller controller; // Controller csharp script on the spbtm;
 
     /// <summary>
     /// 计算反比例函数采样之后得到的点
@@ -62,7 +63,7 @@ public class JumpUI : MonoBehaviour
         {
             if ((i / 30) % 2 == 0)
             {
-                float highlight_idx = left_points.Length * Controller.jump_force / Controller.Y_Force_Max;
+                float highlight_idx = left_points.Length * Controller.jump_force / controller.Y_Force_Max;
                 if (left_points.Length - i <= highlight_idx)
                     GL.Color(highlight_material.color);
                 else
@@ -82,7 +83,7 @@ public class JumpUI : MonoBehaviour
     {
         screen_center = new Vector3(Screen.width / 2, Screen.height / 2, 0);
         origin = screen_center - new Vector3(0, Screen.height * offset_ratio, 0);
-
+        controller = GameObject.Find("spbtm").GetComponent<Controller>();
     }
 
     void Start()
