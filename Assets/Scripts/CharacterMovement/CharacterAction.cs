@@ -30,6 +30,7 @@ public class CharacterAction : BaseAction
 
     protected void shoulderCtrl()
     {
+        Debug.Log("shoulder~");
         leftShoul.transform.Rotate(new Vector3(-Input.GetAxis("Mouse Y") * rotateSpeed * Time.deltaTime, 0.0f, 0.0f));
         rightShoul.transform.Rotate(new Vector3(-Input.GetAxis("Mouse Y") * rotateSpeed * Time.deltaTime, 0.0f, 0.0f));
     }

@@ -28,12 +28,15 @@ public class Controller : MonoBehaviour
     // public float slope; 
     // private float pretime; 
     #region jump
-    public float Y_Force_Max = 150;
-    private float jump_force = 0;
+    public float Y_Force_Max = 100;
+    [Tooltip("向上跳跃的力相对于向前跳跃的力的比例")] [Range(0, 2)]
+    public float Ratio = 0.8f;
+    static public float jump_force = 0;
     private float y_jump_force = 0;
     private float x_jump_force = 0;
     private Vector3 jump_vector;
     private bool isJumping;
+    static public bool isCharging = false; // use for charge jump UI
     #endregion
 
     [Space(20)]
@@ -44,7 +47,8 @@ public class Controller : MonoBehaviour
 
     [Space(20)]
     public float rotateSpeed = 90.0f;
-    public GameObject fatherArm;
+    public GameObject fatherArm1;
+    public GameObject fatherArm2;
 
     //void OnCollisionEnter(Collision col)
     //{
@@ -60,37 +64,37 @@ public class Controller : MonoBehaviour
     //        Morto = true;
     //    }
     //}
-    protected void handCtrl()
-    {
-        //手臂延长
-        //用肩膀到前臂的伸长线去做
-        if (Input.GetMouseButton(0))
-        {
-            if (armRange <= maxArmRange)
-            {
-                leftArm2.transform.Translate(new Vector3(0,1,0)
-                    * elongSpeed * Time.deltaTime, Space.Self);
+    //protected void handCtrl()
+    //{
+    //    //手臂延长
+    //    //用肩膀到前臂的伸长线去做
+    //    if (Input.GetMouseButton(1))
+    //    {
+    //        if (armRange <= maxArmRange)
+    //        {
+    //            leftArm2.transform.Translate(new Vector3(0,1,0)
+    //                * elongSpeed * Time.deltaTime, Space.Self);
 
-                armRange += elongSpeed * Time.deltaTime;
-                //Debug.Log(armRange);
-            }
+    //            armRange += elongSpeed * Time.deltaTime;
+    //            //Debug.Log(armRange);
+    //        }
 
-        }
-        else
-        {
-            if (armRange > 0)
-            {
+    //    }
+    //    else
+    //    {
+    //        if (armRange > 0)
+    //        {
 
-                leftArm2.transform.Translate(new Vector3(0, 1, 0)
-                    * -elongSpeed * Time.deltaTime, Space.Self);
-                armRange -= elongSpeed * Time.deltaTime;
-                //Debug.Log(armRange);
-            }
-        }
+    //            leftArm2.transform.Translate(new Vector3(0, 1, 0)
+    //                * -elongSpeed * Time.deltaTime, Space.Self);
+    //            armRange -= elongSpeed * Time.deltaTime;
+    //            //Debug.Log(armRange);
+    //        }
+    //    }
 
 
 
-    }
+    //}
 
     void ChargeJump()
     {
@@ -99,14 +103,16 @@ public class Controller : MonoBehaviour
         {
             if (jump_force < Y_Force_Max)
                 ++jump_force;
+            isCharging = true;
             //Debug.Log("jump_force = " + jump_force);
         }
 
         if (!Input.GetKey(KeyCode.Space) && jump_force!=0 && !isJumping)
         {
-            isJumping = true;
-            jump_vector = new Vector3(0, jump_force, 0);
-            jump_vector += this.transform.forward * 1.0f;
+            isJumping = true; 
+            isCharging = false;
+            jump_vector = new Vector3(0, jump_force * Ratio, 0);
+            jump_vector += this.transform.forward * jump_force;
         }
         
     }
@@ -158,10 +164,29 @@ public class Controller : MonoBehaviour
 
     protected void shoulderCtrl()
     {
-        fatherArm.transform.Rotate(new Vector3(0.0f, 0.0f, -Input.GetAxis("Mouse Y") * rotateSpeed * Time.deltaTime));
+        //Debug.Log("Shoulder~");
+        Vector3 temp = fatherArm1.transform.localEulerAngles;
+        if(temp.z < 30 && Input.GetAxis("Mouse Y") < 0)
+        {
+            fatherArm1.transform.Rotate(new Vector3(0.0f, 0.0f, -Input.GetAxis("Mouse Y") * rotateSpeed * Time.deltaTime));
+            fatherArm2.transform.Rotate(new Vector3(0.0f, 0.0f, Input.GetAxis("Mouse Y") * rotateSpeed * Time.deltaTime));
+        }
+        else if(temp.z > 150 && Input.GetAxis("Mouse Y") > 0)
+        {
+            fatherArm1.transform.Rotate(new Vector3(0.0f, 0.0f, -Input.GetAxis("Mouse Y") * rotateSpeed * Time.deltaTime));
+            fatherArm2.transform.Rotate(new Vector3(0.0f, 0.0f, Input.GetAxis("Mouse Y") * rotateSpeed * Time.deltaTime));
+        }
+        else if(temp.z >=30 && temp.z <=150)
+        {
+            fatherArm1.transform.Rotate(new Vector3(0.0f, 0.0f, -Input.GetAxis("Mouse Y") * rotateSpeed * Time.deltaTime));
+            fatherArm2.transform.Rotate(new Vector3(0.0f, 0.0f, Input.GetAxis("Mouse Y") * rotateSpeed * Time.deltaTime));
+        }
+        
+        
+        
     }
 
-    void Start()
+    protected void Start()
     {
         _Velocity = GetComponent<Rigidbody>().velocity.magnitude;
         rb = GetComponent<Rigidbody>();
@@ -186,7 +211,7 @@ public class Controller : MonoBehaviour
 
             // Ctrl
             MoveCtrl();
-            handCtrl();
+            //handCtrl();
             JumpCtrl();
             shoulderCtrl();
         }
