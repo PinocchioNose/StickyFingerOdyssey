@@ -21,9 +21,9 @@ public class funcHandle : MonoBehaviour
     void Start()
     {
         leftStatus = true;
-        rightStatus = true;
-        leftArm.GetComponent<CatchWall>().setReject(leftStatus);
-        rightArm.GetComponent<PickUp>().setReject(rightStatus);
+        rightStatus = false;
+        //leftArm.GetComponent<CatchWall>().setReject(false);
+        //rightArm.GetComponent<PickUp>().setReject(false);
     }
 
     void exchange(int command)
@@ -31,16 +31,39 @@ public class funcHandle : MonoBehaviour
         if (command == 1)
         {
             leftStatus = !leftStatus;
-            leftArm.GetComponent<CatchWall>().setReject(leftStatus);
+            if(leftStatus == false)
+            {
+                FixedJoint tempFixed = leftArm.GetComponent<FixedJoint>();
+                if(tempFixed != null)
+                {
+                    tempFixed.connectedBody = null;
+                    Destroy(leftArm.GetComponent<FixedJoint>());
+                }
+                leftArm.GetComponent<FixedJoint>().connectedBody = null;
+            }
+            else
+            {
+                if(leftArm.GetComponent<FixedJoint>() == null)
+                {
+                    leftArm.AddComponent<FixedJoint>();
+                }
+            }
+            //leftArm.GetComponent<CatchWall>().setReject(leftStatus);
             //rightArm.GetComponent<PickUp>().setReject(true);
             //leftArm.GetComponent<CatchWall>().enabled = true;
             //rightArm.GetComponent<PickUp>().enabled = false;
         }
         else if (command == 2)
         {
-            rightStatus = !rightStatus;
-            //leftArm.GetComponent<CatchWall>().setReject(rightStatus);
-            rightArm.GetComponent<PickUp>().setReject(rightStatus);
+            
+            int temp = rightArm.GetComponent<CatchWall>().setSticky(rightStatus);
+            if (rightStatus) Debug.Log("set true");
+            else Debug.Log("set false");
+            if(temp == 0)
+            {
+                rightStatus = !rightStatus;
+            }
+            //rightArm.GetComponent<PickUp>().setReject(rightStatus);
             //leftArm.GetComponent<CatchWall>().enabled = false;
             //rightArm.GetComponent<PickUp>().enabled = true;
         }

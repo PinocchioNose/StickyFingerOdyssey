@@ -15,7 +15,7 @@ public class PickUp : MonoBehaviour
 
     void Start()
     {
-        isRejecting = true;
+        isRejecting = false;
         armRange = 0.0f;
     }
     
@@ -28,7 +28,7 @@ public class PickUp : MonoBehaviour
     {
         //手臂延长
         //用肩膀到前臂的伸长线去做
-        if (Input.GetMouseButton(1))
+        if (Input.GetMouseButton(0))
         {
             if (armRange <= maxArmRange)
             {
@@ -58,40 +58,51 @@ public class PickUp : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (isRejecting) return;
+        //if (isRejecting) return;
         if(collision.gameObject.tag == "pickable")
         {
-            //Debug .Log("collision happened!");
-            this.GetComponent<FixedJoint>().connectedBody = collision.gameObject.GetComponent<Rigidbody>();
+            Debug.Log("collied");
+            if (this.GetComponent<FixedJoint>() != null)
+            {
+                Debug.Log("connected");
+                this.GetComponent<FixedJoint>().connectedBody = collision.gameObject.GetComponent<Rigidbody>();
+            }
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(!isRejecting)
-        {
-            if (Input.GetKeyDown(KeyCode.F))
-            {
-                this.GetComponent<FixedJoint>().connectedBody = null;
-                //Debug.Log("release");
-            }
-            handCtrl();
-        }
-        else
-        {
-            //拒绝作动之后强制回收
-            if (armRange > 0)
-            {
+        //if(!isRejecting)
+        //{
+        //    if (Input.GetKeyDown(KeyCode.F))
+        //    {
+        //        this.GetComponent<FixedJoint>().connectedBody = null;
+        //        //Debug.Log("release");
+        //    }
+        //    handCtrl();
+        //}
+        //else
+        //{
+        //    //拒绝作动之后强制回收
+        //    if (armRange > 0)
+        //    {
 
-                leftArm2.transform.Translate(new Vector3(0, 1, 0)
-                    * -elongSpeed * Time.deltaTime, Space.Self);
-                armRange -= elongSpeed * Time.deltaTime;
-                //Debug.Log(armRange);
-            }
-            this.GetComponent<FixedJoint>().connectedBody = null;
-            //Debug.Log("release");
-        }
-
+        //        leftArm2.transform.Translate(new Vector3(0, 1, 0)
+        //            * -elongSpeed * Time.deltaTime, Space.Self);
+        //        armRange -= elongSpeed * Time.deltaTime;
+        //        //Debug.Log(armRange);
+        //    }
+        //    this.GetComponent<FixedJoint>().connectedBody = null;
+        //    //Debug.Log("release");
+        //}
+        handCtrl();
+        //if(Input.GetKeyDown(KeyCode.Q))
+        //{
+        //    if(this.GetComponent<FixedJoint>() != null)
+        //    {
+        //        this.GetComponent<FixedJoint>().connectedBody = null;
+        //    }
+        //}
     }
 }

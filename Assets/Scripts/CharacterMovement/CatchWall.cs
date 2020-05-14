@@ -41,6 +41,9 @@ public class CatchWall : MonoBehaviour
     //catchlock 为了在解除勾爪时不再次被某障碍物锁定
     private bool catchlock;
 
+    //表示是否有粘性
+    private bool sticky;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -50,7 +53,10 @@ public class CatchWall : MonoBehaviour
         lastPos = originPos;
         originRotate = this.transform.localRotation;
         isRejecting = false;
+
+        sticky = true;
         //lastTimeCata = Time.time;
+        
     }
 
     //private void OnCollisionEnter(Collision collision)
@@ -63,6 +69,22 @@ public class CatchWall : MonoBehaviour
     //}
 
 
+    public int setSticky(bool theStatus)
+    {
+        if(catchlock)
+        {
+            sticky = theStatus;
+            Debug.Log("set success");
+            return 0;
+        }
+        else
+        {
+            Debug.Log("set failed");
+            return 1;
+        }
+        
+    }
+
     //建立勾爪锚点
     void OnCollisionEnter(Collision col)
     {
@@ -74,15 +96,24 @@ public class CatchWall : MonoBehaviour
         {
             if (col.gameObject.tag == "catchable")
             {
-                // creates joint
-                joint = gameObject.AddComponent<FixedJoint>();
-                // sets joint position to point of contact
-                joint.anchor = col.contacts[0].point;
-                contactPoint = col.contacts[0].point;
-                // conects the joint to the other object
-                joint.connectedBody = col.contacts[0].otherCollider.transform.GetComponentInParent<Rigidbody>();
-                // Stops objects from continuing to collide and creating more joints
-                joint.enableCollision = false;
+                if(sticky)
+                {
+                    // creates joint
+                    joint = gameObject.AddComponent<FixedJoint>();
+                    // sets joint position to point of contact
+                    joint.anchor = col.contacts[0].point;
+                    contactPoint = col.contacts[0].point;
+                    // conects the joint to the other object
+                    joint.connectedBody = col.contacts[0].otherCollider.transform.GetComponentInParent<Rigidbody>();
+                    // Stops objects from continuing to collide and creating more joints
+                    joint.enableCollision = false;
+                }
+                else
+                {
+                    Vector3 temp = (theBody.transform.position - contactPoint).normalized * catapultPower;
+                    temp.y = 5.0f;
+                    theBody.GetComponent<Rigidbody>().AddForce(temp, ForceMode.Impulse);
+                }
 
             }
         }
@@ -118,13 +149,12 @@ public class CatchWall : MonoBehaviour
     public void retrieve()
     {
         //float dist = (this.transform.localPosition - originPos).magnitude;
-        if(status == flyStatus.approach)
-        {
+        
             this.GetComponent<Rigidbody>().isKinematic = true;
             transform.localRotation = Quaternion.Slerp(transform.localRotation, originRotate, rotateSpeed * Time.deltaTime);
             transform.localPosition = Vector3.Lerp(transform.localPosition, originPos, retrieveSpeed * Time.deltaTime);
             catchlock = true;
-        }
+        
     }
 
     //时刻监视回收状态
@@ -150,24 +180,37 @@ public class CatchWall : MonoBehaviour
         {
             status = flyStatus.standBy;
         }
+        //Debug.Log((this.transform.localPosition - originPos).magnitude);
+        
         lastPos = tempVector;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(!isRejecting)
+        if ((this.transform.localPosition - originPos).magnitude >= 0.8)
+        {
+            if (this.GetComponent<FixedJoint>() != null)
+            {
+                Destroy(this.GetComponent<FixedJoint>());
+            }
+            this.GetComponent<Rigidbody>().isKinematic = true;
+            transform.localRotation = originRotate;
+            transform.localPosition = originPos;
+            catchlock = true;
+        }
+        if (!isRejecting)
         {
             retrieveMonitor();
             //retrieve();
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(1))
             {
                 //发射勾爪
                 Rigidbody rb = this.GetComponent<Rigidbody>();
                 rb.isKinematic = false;
                 rb.AddForce(this.transform.up * strength, ForceMode.Impulse);
             }
-            if (Input.GetMouseButtonDown(0) && this.GetComponent<FixedJoint>() != null)
+            if (Input.GetMouseButtonDown(1) && this.GetComponent<FixedJoint>() != null)
             {
                 catchlock = false;
                 if (this.GetComponent<FixedJoint>() != null)
@@ -178,7 +221,7 @@ public class CatchWall : MonoBehaviour
                 {
                     // Debug.Log("Fixed Joint doesn't exist!");
                 }
-
+                
             }
             if (Input.GetKeyDown(KeyCode.Space))
             {
@@ -192,12 +235,13 @@ public class CatchWall : MonoBehaviour
                 this.GetComponent<Rigidbody>().isKinematic = true;
                 transform.localRotation = Quaternion.Slerp(transform.localRotation, originRotate, rotateSpeed * Time.deltaTime);
                 transform.localPosition = Vector3.Lerp(transform.localPosition, originPos, retrieveSpeed * Time.deltaTime);
-                catchlock = true;
+                
 
                 if (this.GetComponent<FixedJoint>() != null)
                 {
                     Destroy(this.GetComponent<FixedJoint>());
                 }
+                catchlock = true;
             }
             
         }
