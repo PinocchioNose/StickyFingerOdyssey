@@ -397,7 +397,7 @@ GameObject:
   - component: {fileID: 170840069018674782}
   - component: {fileID: 170840069018674781}
   m_Layer: 0
-  m_Name: rag3 (1)
+  m_Name: rag_real
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1316,7 +1316,7 @@ GameObject:
   m_Component:
   - component: {fileID: 170840069815600577}
   - component: {fileID: 170840069815600582}
-  - component: {fileID: 170840069815600578}
+  - component: {fileID: 6641416991020571561}
   - component: {fileID: 170840069815600579}
   - component: {fileID: 170840069815600576}
   - component: {fileID: 170840069815600583}
@@ -1360,7 +1360,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
---- !u!114 &170840069815600578
+--- !u!114 &6641416991020571561
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1369,12 +1369,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 170840069815600581}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 613ebe3a5c465784e8b762f0e20f53d1, type: 3}
+  m_Script: {fileID: 11500000, guid: 625e2dffc6980394bba6a8873045a165, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   DeadJoint: []
-  hj1: {fileID: 170840069960493620}
-  hj2: {fileID: 170840069771427728}
+  hj1: {fileID: 0}
+  hj2: {fileID: 0}
   SpringMin: 30
   SpringMax: 300
   Resist: 10
@@ -1383,12 +1383,13 @@ MonoBehaviour:
   Correction: 0
   Y_Force_Max: 100
   Ratio: 0.8
-  maxArmRange: 3
-  leftArm2: {fileID: 170840069120435280}
-  elongSpeed: 1
-  rotateSpeed: 180
-  fatherArm1: {fileID: 170840069706630702}
-  fatherArm2: {fileID: 170840069068846747}
+  increment_ratio: 1
+  maxArmRange: 0
+  leftArm2: {fileID: 0}
+  elongSpeed: 0
+  rotateSpeed: 90
+  fatherArm1: {fileID: 0}
+  fatherArm2: {fileID: 0}
 --- !u!114 &170840069815600579
 MonoBehaviour:
   m_ObjectHideFlags: 0
