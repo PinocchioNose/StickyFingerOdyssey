@@ -2,25 +2,51 @@ using UnityEngine;
 using System.Collections;
 
 public class FloatObject : MonoBehaviour {
-    [Tooltip("水面高度")]
-    public float waterLevel;
-    public float floatHeight;
-    [Tooltip("漂浮中心和物体质心之间的偏移")]
-	public Vector3 buoyancyCentreOffset;
-    [Tooltip("阻尼")]
-	public float bounceDamp;
-	
-	
+    private bool isInWater = false;
+    private GameObject Water;
+    private float waterY;
+    private const float floatageForce = 0;
+    private const float density = 1;
+    private const float g = 9.8f;
+    private const float waterDrag = 5;
 
-	void FixedUpdate () 
+
+    public bool getIsInWater()
     {
-		Vector3 buoyancyActionPoint = transform.position + transform.TransformDirection(buoyancyCentreOffset);
-		float forceFactor = 1f - ((buoyancyActionPoint.y - waterLevel) / floatHeight);
-		
-		if (forceFactor > 0f) 
+        return isInWater;
+    }
+
+    public void setIsInWater(bool isInWater)
+    {
+        this.isInWater = isInWater;
+    }
+
+    private void Start()
+    {
+        isInWater = false;
+        Water = GameObject.FindWithTag("Water");
+    }
+
+    private void FixedUpdate()
+    {
+        if (isInWater)
         {
-			Vector3 uplift = -Physics.gravity * (forceFactor - GetComponent<Rigidbody>().velocity.y * bounceDamp);
-			GetComponent<Rigidbody>().AddForceAtPosition(uplift, buoyancyActionPoint);
-		}
-	}
+            Debug.Log("is in water");
+            calFloatage();
+            GetComponent<Rigidbody>().drag = waterDrag;
+        }
+    }
+
+    void calFloatage()
+    {
+        waterY = 0.85f; // Water.transform.position.y
+
+        if (waterY > (transform.position.y - transform.localScale.y))
+        {
+            float h = waterY - (transform.position.y - transform.localScale.y / 2) > transform.localScale.y ? transform.localScale.y : waterY - (transform.position.y - transform.localScale.y / 2);
+            float floatageForce = density * g * transform.localScale.x * transform.localScale.z * h;
+            GetComponent<Rigidbody>().AddForce(0, floatageForce, 0);
+        }
+    }
+
 }

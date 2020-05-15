@@ -31,6 +31,8 @@ public class Controller : MonoBehaviour
     public float Y_Force_Max = 100;
     [Tooltip("向上跳跃的力相对于向前跳跃的力的比例")] [Range(0, 2)]
     public float Ratio = 0.8f;
+    [Tooltip("增量")] [Range(0, 1)]
+    public float increment_ratio = 1f;
     static public float jump_force = 0;
     private float y_jump_force = 0;
     private float x_jump_force = 0;
@@ -102,7 +104,7 @@ public class Controller : MonoBehaviour
         if (Input.GetKey(KeyCode.Space) && !isJumping)
         {
             if (jump_force < Y_Force_Max)
-                ++jump_force;
+                jump_force += increment_ratio;
             isCharging = true;
             //Debug.Log("jump_force = " + jump_force);
         }
