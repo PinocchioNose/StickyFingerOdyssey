@@ -24,6 +24,8 @@ public class Controller : MonoBehaviour
     // public bool AtivarAutoConserto;  
     // public Transform checkRootable; 
     public bool Correction;
+    [Range(0,5)]
+    public float sensitivity;
     // public float MinRoot, MaxRoot;
     // public float slope; 
     // private float pretime; 
@@ -31,6 +33,8 @@ public class Controller : MonoBehaviour
     public float Y_Force_Max = 100;
     [Tooltip("向上跳跃的力相对于向前跳跃的力的比例")] [Range(0, 2)]
     public float Ratio = 0.8f;
+    [Tooltip("增量")] [Range(0, 1)]
+    public float increment_ratio = 1f;
     static public float jump_force = 0;
     private float y_jump_force = 0;
     private float x_jump_force = 0;
@@ -102,7 +106,7 @@ public class Controller : MonoBehaviour
         if (Input.GetKey(KeyCode.Space) && !isJumping)
         {
             if (jump_force < Y_Force_Max)
-                ++jump_force;
+                jump_force += increment_ratio;
             isCharging = true;
             //Debug.Log("jump_force = " + jump_force);
         }
@@ -129,35 +133,57 @@ public class Controller : MonoBehaviour
 
     void MoveCtrl()
     {
+        // if(Input.GetAxis("Mouse X")!=0)
+        // {
+        //     transform.Rotate(new Vector3(0,Input.GetAxis("Mouse X"),0));
+        // }
+        if(transform.eulerAngles.x!=0||transform.eulerAngles.z!=0){
+                    float y=transform.eulerAngles.y;
+                    transform.eulerAngles=new Vector3(0,y,0);
+                }
         if (Input.GetKey(KeyCode.W))
         {
             anim.SetBool("ifHalt", false);
-
+            if(!Input.GetKey(KeyCode.A)||!Input.GetKey(KeyCode.D))
+                this.GetComponent<Rigidbody>().freezeRotation=true;//constraints
+                //     =RigidbodyConstraints.FreezeRotationZ|RigidbodyConstraints.FreezeRotationX|RigidbodyConstraints.FreezeRotation;
             hs1.spring = SpringMin;
             hs2.spring = SpringMin;
         }
+        // 
 
-
-        if (Input.GetKey(KeyCode.W) == false && Correction == false)
+        if (Input.GetKey(KeyCode.W) == false /*&& Correction == false*/)
         {
             anim.SetBool("ifHalt", true);
+            this.GetComponent<Rigidbody>().constraints
+                =RigidbodyConstraints.FreezeRotationX|RigidbodyConstraints.FreezeRotationZ;
 
             hs1.spring = SpringMax;
             hs2.spring = SpringMax;
+            // if (Input.GetKey(KeyCode.A)){
+            //     transform.Rotate(new Vector3(0,-120*Time.deltaTime,0),Space.Self);
+            // }
+            // if (Input.GetKey(KeyCode.D)){
+            //     transform.Rotate(new Vector3(0,120*Time.deltaTime,0),Space.Self);
+            //     // if(transform.eulerAngles.x!=0||transform.eulerAngles.z!=0){
+            //     //     float y=transform.eulerAngles.y;
+            //     //     transform.eulerAngles=new Vector3(0,y,0);
+            //     // }
+            // }
         }
-        if (Input.GetKey(KeyCode.S))
-        {
+        // if (Input.GetKey(KeyCode.S))
+        // {
 
-        }
+        // }
 
-        if (Input.GetKey(KeyCode.A))
-        {
+        // if (Input.GetKey(KeyCode.A))
+        // {
 
-        }
-        if (Input.GetKey(KeyCode.D))
-        {
+        // }
+        // if (Input.GetKey(KeyCode.D))
+        // {
 
-        }
+        // }
         hj1.spring = hs1;
         hj2.spring = hs2;
     }
@@ -205,18 +231,22 @@ public class Controller : MonoBehaviour
         {
             // charge jump
             ChargeJump();
-
+            MoveCtrl();
             // rotate
-            transform.Rotate(0, Input.GetAxis("Mouse X") * 90.0f * Time.deltaTime, 0);
+            transform.Rotate(0, Input.GetAxis("Mouse X") * 5.0f * sensitivity, 0);
 
             // Ctrl
-            MoveCtrl();
+            // MoveCtrl();
             //handCtrl();
             JumpCtrl();
             shoulderCtrl();
         }
-        
 
+    }
+    
+    void Update()
+    {
+        
     }
 
     
