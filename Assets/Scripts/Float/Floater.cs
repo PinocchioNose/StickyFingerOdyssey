@@ -12,6 +12,8 @@ public class Floater : MonoBehaviour
     public float waterDrag = 0.99f;
     public float waterAngularDrag = 0.5f;
 
+    private Vector3 move_forward = Vector3.zero;
+
     private void FixedUpdate()
     {
         rigidbody.AddForceAtPosition(Physics.gravity / floaterCount, transform.position, ForceMode.Acceleration);
@@ -25,5 +27,14 @@ public class Floater : MonoBehaviour
             rigidbody.AddTorque(displacemenMultiplier * -rigidbody.angularVelocity * waterAngularDrag * Time.fixedDeltaTime, ForceMode.VelocityChange);
         
         }
+
+        //if (Input.GetKey(KeyCode.I))
+        //{
+        //    rigidbody.AddForce(rigidbody.transform.forward * 2,ForceMode.Acceleration);
+        //}
+        //if (Input.GetKey(KeyCode.L))
+        //{
+        //    rigidbody.
+        //}
     }
 }

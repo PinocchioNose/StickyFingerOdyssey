@@ -140,7 +140,7 @@ public class Controller : MonoBehaviour
         if(transform.eulerAngles.x!=0||transform.eulerAngles.z!=0){
                     float y=transform.eulerAngles.y;
                     transform.eulerAngles=new Vector3(0,y,0);
-                }
+        }
         if (Input.GetKey(KeyCode.W))
         {
             anim.SetBool("ifHalt", false);
@@ -227,7 +227,8 @@ public class Controller : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (!Morto)
+        // not driving and not dying
+        if (!Morto /*&& BoatControlTrigger.ifEnterTrigger == false*/)
         {
             // charge jump
             ChargeJump();
@@ -241,6 +242,9 @@ public class Controller : MonoBehaviour
             JumpCtrl();
             shoulderCtrl();
         }
+
+        if (BoatControlTrigger.ifEnterTrigger == true)
+            Debug.Log("disable character move");
 
     }
     
