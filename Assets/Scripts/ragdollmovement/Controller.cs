@@ -228,19 +228,23 @@ public class Controller : MonoBehaviour
     void FixedUpdate()
     {
         // not driving and not dying
-        if (!Morto /*&& BoatControlTrigger.ifEnterTrigger == false*/)
+        if (!Morto)
         {
-            // charge jump
-            ChargeJump();
-            MoveCtrl();
+            if (BoatControlTrigger.ifEnterTrigger == false)
+            {
+                // charge jump
+                ChargeJump();
+                MoveCtrl();
+                
+
+                // Ctrl
+                // MoveCtrl();
+                //handCtrl();
+                JumpCtrl();
+                shoulderCtrl();
+            }
             // rotate
             transform.Rotate(0, Input.GetAxis("Mouse X") * 5.0f * sensitivity, 0);
-
-            // Ctrl
-            // MoveCtrl();
-            //handCtrl();
-            JumpCtrl();
-            shoulderCtrl();
         }
 
         if (BoatControlTrigger.ifEnterTrigger == true)

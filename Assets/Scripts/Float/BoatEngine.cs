@@ -18,7 +18,7 @@ public class BoatEngine : MonoBehaviour
 
 
 
-    private float boatRotation_YAngle = 0f;
+    public static float boatRotation_YAngle = 0f;
 
     public Transform boatTransform;
     private BoatController boatController;
@@ -51,7 +51,7 @@ public class BoatEngine : MonoBehaviour
         {
             Debug.Log("enable boat move");
             // forward
-            if (Input.GetKey(KeyCode.I))
+            if (Input.GetKey(KeyCode.W))
             {
                 if (boatController.getCurrentSpeed() < 50f && currentPower < maxPower)
                 {
@@ -62,24 +62,24 @@ public class BoatEngine : MonoBehaviour
             else
                 currentPower = 0f;
 
-        // Steer left
-        if (Input.GetKey(KeyCode.J))
-        {
-            boatRotation_YAngle -= boatRotation_YAngle > -maxRotationSpeed ? 0.001f : 0f;
-            boatRB.angularVelocity = boatTransform.forward * angularSpeed * boatRotation_YAngle;
+            // Steer left
+            if (Input.GetKey(KeyCode.A))
+            {
+                boatRotation_YAngle -= boatRotation_YAngle > -maxRotationSpeed ? 0.001f : 0f;
+                boatRB.angularVelocity = boatTransform.forward * angularSpeed * boatRotation_YAngle;
 
-        }
-        // Steer right
-        else if (Input.GetKey(KeyCode.L))
-        {
-            boatRotation_YAngle += boatRotation_YAngle < maxRotationSpeed ? 0.001f : 0f;
-            boatRB.angularVelocity = boatTransform.forward * angularSpeed * boatRotation_YAngle;
-        }
-        else
-        {
-            boatRotation_YAngle = 0;
+            }
+            // Steer right
+            else if (Input.GetKey(KeyCode.D))
+            {
+                boatRotation_YAngle += boatRotation_YAngle < maxRotationSpeed ? 0.001f : 0f;
+                boatRB.angularVelocity = boatTransform.forward * angularSpeed * boatRotation_YAngle;
+            }
+            else
+            {
+                boatRotation_YAngle = 0;
 
-        }
+            }
 
         }
     }
