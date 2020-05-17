@@ -160,16 +160,22 @@ public class Controller : MonoBehaviour
 
             hs1.spring = SpringMax;
             hs2.spring = SpringMax;
-            // if (Input.GetKey(KeyCode.A)){
-            //     transform.Rotate(new Vector3(0,-120*Time.deltaTime,0),Space.Self);
-            // }
-            // if (Input.GetKey(KeyCode.D)){
-            //     transform.Rotate(new Vector3(0,120*Time.deltaTime,0),Space.Self);
-            //     // if(transform.eulerAngles.x!=0||transform.eulerAngles.z!=0){
-            //     //     float y=transform.eulerAngles.y;
-            //     //     transform.eulerAngles=new Vector3(0,y,0);
-            //     // }
-            // }
+            if (Input.GetKey(KeyCode.A)){
+                // transform.Rotate(new Vector3(0,-120*Time.deltaTime,0),Space.Self);
+                this.GetComponent<Rigidbody>().AddForce(transform.right * -1 * 200.0f);
+            }
+            if (Input.GetKey(KeyCode.D)){
+                this.GetComponent<Rigidbody>().AddForce(transform.right * 200.0f);
+                //transform.Rotate(new Vector3(0,120*Time.deltaTime,0),Space.Self);
+                // if(transform.eulerAngles.x!=0||transform.eulerAngles.z!=0){
+                //     float y=transform.eulerAngles.y;
+                //     transform.eulerAngles=new Vector3(0,y,0);
+                // }
+            }
+            if (Input.GetKey(KeyCode.S))
+            {
+                this.GetComponent<Rigidbody>().AddForce(transform.forward * -1 * 200.0f);
+            }
         }
         // if (Input.GetKey(KeyCode.S))
         // {
@@ -251,7 +257,7 @@ public class Controller : MonoBehaviour
             Debug.Log("disable character move");
 
     }
-    
+
     void Update()
     {
         
