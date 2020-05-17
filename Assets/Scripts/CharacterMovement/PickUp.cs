@@ -13,8 +13,13 @@ public class PickUp : MonoBehaviour
     public GameObject leftArm2;
     public float elongSpeed;
 
+    private int handCanElong; // 1只能伸长，0保持暂停，-1只能缩短
+    private int nextHandStatus;
     void Start()
     {
+        handCanElong = 0;
+        nextHandStatus = 0;
+
         isRejecting = false;
         armRange = 0.0f;
     }
@@ -28,7 +33,7 @@ public class PickUp : MonoBehaviour
     {
         //手臂延长
         //用肩膀到前臂的伸长线去做
-        if (Input.GetMouseButton(0))
+        if (handCanElong == 1)
         {
             if (armRange <= maxArmRange)
             {
@@ -38,9 +43,13 @@ public class PickUp : MonoBehaviour
                 armRange += elongSpeed * Time.deltaTime;
                 //Debug.Log(armRange);
             }
+            else
+            {
+                handCanElong = 0;
+            }
 
         }
-        else
+        else if(handCanElong == -1)
         {
             if (armRange > 0)
             {
@@ -49,6 +58,10 @@ public class PickUp : MonoBehaviour
                     * -elongSpeed * Time.deltaTime, Space.Self);
                 armRange -= elongSpeed * Time.deltaTime;
                 //Debug.Log(armRange);
+            }
+            else if(armRange <= 0)
+            {
+                handCanElong = 0;
             }
         }
 
@@ -59,9 +72,11 @@ public class PickUp : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         //if (isRejecting) return;
-        if(collision.gameObject.tag == "pickable")
+        handCanElong = 0;
+        Debug.Log("collied");
+        if (collision.gameObject.tag == "pickable")
         {
-            Debug.Log("collied");
+            
             if (this.GetComponent<FixedJoint>() != null)
             {
                 Debug.Log("connected");
@@ -96,6 +111,20 @@ public class PickUp : MonoBehaviour
         //    this.GetComponent<FixedJoint>().connectedBody = null;
         //    //Debug.Log("release");
         //}
+        if(Input.GetMouseButtonDown(0))
+        {
+            if (nextHandStatus == 0)
+            {
+                handCanElong = 1;
+                nextHandStatus = -1;
+            }
+            else
+            {
+                handCanElong = nextHandStatus;
+                nextHandStatus = -nextHandStatus;
+            }
+            
+        }
         handCtrl();
         //if(Input.GetKeyDown(KeyCode.Q))
         //{

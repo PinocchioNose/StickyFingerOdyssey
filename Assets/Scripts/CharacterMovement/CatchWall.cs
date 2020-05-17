@@ -99,10 +99,13 @@ public class CatchWall : MonoBehaviour
                 if(sticky)
                 {
                     // creates joint
+                    //this.transform.position = col.contacts[0].point;
                     joint = gameObject.AddComponent<FixedJoint>();
                     // sets joint position to point of contact
+                    Debug.Log("105 executed.");
                     joint.anchor = col.contacts[0].point;
-                    contactPoint = col.contacts[0].point;
+                    contactPoint = this.transform.position;
+                    
                     // conects the joint to the other object
                     joint.connectedBody = col.contacts[0].otherCollider.transform.GetComponentInParent<Rigidbody>();
                     // Stops objects from continuing to collide and creating more joints
@@ -110,7 +113,7 @@ public class CatchWall : MonoBehaviour
                 }
                 else
                 {
-                    Vector3 temp = (theBody.transform.position - contactPoint).normalized * catapultPower;
+                    Vector3 temp = (theBody.transform.position - col.contacts[0].point).normalized * catapultPower;
                     temp.y = 5.0f;
                     theBody.GetComponent<Rigidbody>().AddForce(temp, ForceMode.Impulse);
                 }
@@ -150,11 +153,11 @@ public class CatchWall : MonoBehaviour
     {
         //float dist = (this.transform.localPosition - originPos).magnitude;
         
-            this.GetComponent<Rigidbody>().isKinematic = true;
-            transform.localRotation = Quaternion.Slerp(transform.localRotation, originRotate, rotateSpeed * Time.deltaTime);
-            transform.localPosition = Vector3.Lerp(transform.localPosition, originPos, retrieveSpeed * Time.deltaTime);
-            catchlock = true;
-        
+        this.GetComponent<Rigidbody>().isKinematic = true;
+        transform.localRotation = Quaternion.Slerp(transform.localRotation, originRotate, rotateSpeed * Time.deltaTime);
+        transform.localPosition = Vector3.Lerp(transform.localPosition, originPos, retrieveSpeed * Time.deltaTime);
+        catchlock = true;
+
     }
 
     //时刻监视回收状态
@@ -167,10 +170,11 @@ public class CatchWall : MonoBehaviour
         if(dist1 > dist2)
         {
             status = flyStatus.approach;
-            if(dist2 < minRetrieveDist * minRetrieveDist && this.GetComponent<FixedJoint>() == null)
+            if (dist2 < minRetrieveDist * minRetrieveDist && this.GetComponent<FixedJoint>() == null)
             {
                 retrieve();
             }
+            //retrieve();
         }
         else if(dist1 < dist2)
         {
@@ -199,6 +203,25 @@ public class CatchWall : MonoBehaviour
             transform.localPosition = originPos;
             catchlock = true;
         }
+        if ((this.transform.position - contactPoint).magnitude >= 0.5)
+        {
+            if (this.GetComponent<FixedJoint>() != null)
+            {
+                Destroy(this.GetComponent<FixedJoint>());
+                this.GetComponent<Rigidbody>().isKinematic = true;
+                transform.localRotation = originRotate;
+                transform.localPosition = originPos;
+                catchlock = true;
+            }
+            
+        }
+
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            Debug.Log(this.transform.position);
+            Debug.Log(contactPoint);
+            Debug.Log((this.transform.position - contactPoint).magnitude);
+        }
         if (!isRejecting)
         {
             retrieveMonitor();
@@ -206,6 +229,7 @@ public class CatchWall : MonoBehaviour
             if (Input.GetMouseButtonDown(1))
             {
                 //发射勾爪
+                Debug.Log("232:go!");
                 Rigidbody rb = this.GetComponent<Rigidbody>();
                 rb.isKinematic = false;
                 rb.AddForce(this.transform.up * strength, ForceMode.Impulse);
