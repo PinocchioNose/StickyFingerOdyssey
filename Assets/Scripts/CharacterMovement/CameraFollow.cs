@@ -25,38 +25,9 @@ public class CameraFollow : BaseAction
     public float camera_FOV = 45f;
     private float origin_angle = 0f; // 最开始的摄像机角度  平视
 
-    //void old_camera_follow()
-    //{
-    //    TourCamera.RotateAround(TourCamera.position, Vector3.up, Input.GetAxis("Mouse X") * rotateSpeed * Time.deltaTime);
-    //    //TourCamera.RotateAround(TourCamera.position, TourCamera.right, -Input.GetAxis("Mouse Y") * rotateSpeed * Time.deltaTime);
+    public static float DistanceBetweenCamAndSpbtm; // 相机到spbtm的距离
 
-    //    var YAxis_Input = Input.GetAxis("Mouse Y");
-    //    //Debug.Log("YAxis_Input = " + YAxis_Input);
-    //    //抬升摄像机
-    //    relative_pos -= new Vector3(0.0f, YAxis_Input, 0.0f) * Time.deltaTime;
-    //    if (relative_pos.y > CameraUpAndDown_max)
-    //        relative_pos = new Vector3(0, CameraUpAndDown_max, -0.25f);
-    //    else if (relative_pos.y < CameraUpAndDown_min)
-    //        relative_pos = new Vector3(0, CameraUpAndDown_min, -0.25f);
-
-        
-    //    //Vector3 after_rotate = V3RotateAround(relative_pos, TourCamera.right, -Input.GetAxis("Mouse Y") * rotateSpeed * Time.deltaTime);
-    //    Vector3 TargetCameraPosition = character_transform.TransformPoint(relative_pos);//获取相机跟随的相对位置，再转为世界坐标
-        
-
-    //    TourCamera.position = Vector3.SmoothDamp(
-    //        TourCamera.position,
-    //        TargetCameraPosition,
-    //        ref velocity,
-    //        CameraSmoothTime, //最好为0
-    //        Mathf.Infinity,
-    //        Time.deltaTime
-    //    );
-
-    //    TourCamera.LookAt(character_transform, Vector3.up);
-    //}
-
-    void new_camera_follow()
+    void camera_follow()
     {
         TourCamera.RotateAround(TourCamera.position, Vector3.up, Input.GetAxis("Mouse X") * rotateSpeed * Time.deltaTime);
         
@@ -95,7 +66,8 @@ public class CameraFollow : BaseAction
     protected new void LateUpdate()
     {
         //old_camera_follow();
-        new_camera_follow();
+        camera_follow();
+        DistanceBetweenCamAndSpbtm = (TourCamera.position - character_transform.position).sqrMagnitude;
 
     }
 }
