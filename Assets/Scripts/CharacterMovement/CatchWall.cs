@@ -22,6 +22,8 @@ public class CatchWall : MonoBehaviour
     //记录勾爪点
     private Vector3 contactPoint;
     private FixedJoint joint;
+    private Rigidbody catchedObjectRb;
+    private GameObject catchedObject;
 
     //回收参数
     private float minRetrieveDist = 0.7f;
@@ -101,19 +103,32 @@ public class CatchWall : MonoBehaviour
                     // creates joint
                     //this.transform.position = col.contacts[0].point;
                     joint = gameObject.AddComponent<FixedJoint>();
+                    
                     // sets joint position to point of contact
                     Debug.Log("105 executed.");
-                    joint.anchor = col.contacts[0].point;
-                    contactPoint = this.transform.position;
+                    //joint.anchor = col.contacts[0].point;
+                    contactPoint = col.contacts[0].point;
+
+                    // 创建一个空物体来钩住
+                    Debug.Log("create empty");
+                    catchedObject = new GameObject("tempCatchedObject");
+                    catchedObject.transform.position = contactPoint;
+                    catchedObject.AddComponent<Rigidbody>();
+                    catchedObjectRb = catchedObject.GetComponent<Rigidbody>();
+                    catchedObjectRb.constraints = RigidbodyConstraints.FreezeAll;
+
+                    this.transform.position = contactPoint;
+                    
+                    joint.connectedBody = catchedObject.GetComponent<Rigidbody>();
                     
                     // conects the joint to the other object
-                    joint.connectedBody = col.contacts[0].otherCollider.transform.GetComponentInParent<Rigidbody>();
+                    // joint.connectedBody = col.contacts[0].otherCollider.transform.GetComponentInParent<Rigidbody>();
                     // Stops objects from continuing to collide and creating more joints
                     joint.enableCollision = false;
                 }
                 else
                 {
-                    Vector3 temp = (theBody.transform.position - col.contacts[0].point).normalized * catapultPower;
+                    Vector3 temp = (theBody.transform.position - col.contacts[0].point).normalized * catapultPower * 0.5f;
                     temp.y = 5.0f;
                     theBody.GetComponent<Rigidbody>().AddForce(temp, ForceMode.Impulse);
                 }
@@ -192,22 +207,29 @@ public class CatchWall : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if ((this.transform.localPosition - originPos).magnitude >= 0.8)
+
+        // 拉伸太多就会收回
+        if ((this.transform.localPosition - originPos).magnitude >= 1.2)
         {
             if (this.GetComponent<FixedJoint>() != null)
             {
                 Destroy(this.GetComponent<FixedJoint>());
+                Destroy(catchedObject);
+                Debug.Log("destoryed");
             }
             this.GetComponent<Rigidbody>().isKinematic = true;
             transform.localRotation = originRotate;
             transform.localPosition = originPos;
             catchlock = true;
         }
+        // 如果手臂末端离抓取点太远也立即收回
         if ((this.transform.position - contactPoint).magnitude >= 0.5)
         {
             if (this.GetComponent<FixedJoint>() != null)
             {
                 Destroy(this.GetComponent<FixedJoint>());
+                Destroy(catchedObject);
+                Debug.Log("destoryed");
                 this.GetComponent<Rigidbody>().isKinematic = true;
                 transform.localRotation = originRotate;
                 transform.localPosition = originPos;
@@ -229,10 +251,11 @@ public class CatchWall : MonoBehaviour
             if (Input.GetMouseButtonDown(1))
             {
                 //发射勾爪
-                Debug.Log("232:go!");
+                
                 Rigidbody rb = this.GetComponent<Rigidbody>();
                 rb.isKinematic = false;
                 rb.AddForce(this.transform.up * strength, ForceMode.Impulse);
+                Debug.Log("232:go!");
             }
             if (Input.GetMouseButtonDown(1) && this.GetComponent<FixedJoint>() != null)
             {
@@ -240,6 +263,8 @@ public class CatchWall : MonoBehaviour
                 if (this.GetComponent<FixedJoint>() != null)
                 {
                     Destroy(this.GetComponent<FixedJoint>());
+                    Destroy(catchedObject);
+                    Debug.Log("destoryed");
                 }
                 else
                 {

@@ -26,7 +26,7 @@ public class funcHandle : MonoBehaviour
         //rightArm.GetComponent<PickUp>().setReject(false);
     }
 
-    void exchange(int command)
+    public void exchange(int command)
     {
         if (command == 1)
         {
@@ -39,15 +39,18 @@ public class funcHandle : MonoBehaviour
                     tempFixed.connectedBody = null;
                     Destroy(leftArm.GetComponent<FixedJoint>());
                 }
-                leftArm.GetComponent<FixedJoint>().connectedBody = null;
+                //leftArm.GetComponent<FixedJoint>().connectedBody = null;
             }
             else
             {
                 if(leftArm.GetComponent<FixedJoint>() == null)
                 {
-                    leftArm.AddComponent<FixedJoint>();
+                    FixedJoint tempFixedJoint = leftArm.AddComponent<FixedJoint>();
+                    tempFixedJoint.breakForce = 100;
                 }
             }
+            GameObject tempCamera = GameObject.Find("Tour Camera");
+            tempCamera.GetComponent<StickyUI>().leftImageUIStatusChange(leftStatus);
             //leftArm.GetComponent<CatchWall>().setReject(leftStatus);
             //rightArm.GetComponent<PickUp>().setReject(true);
             //leftArm.GetComponent<CatchWall>().enabled = true;
@@ -57,6 +60,8 @@ public class funcHandle : MonoBehaviour
         {
             
             int temp = rightArm.GetComponent<CatchWall>().setSticky(rightStatus);
+            GameObject tempCamera = GameObject.Find("Tour Camera");
+            tempCamera.GetComponent<StickyUI>().rightImageUIStatusChange(rightStatus);
             if (rightStatus) Debug.Log("set true");
             else Debug.Log("set false");
             if(temp == 0)

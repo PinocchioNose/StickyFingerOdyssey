@@ -29,6 +29,12 @@ public class PickUp : MonoBehaviour
         isRejecting = sta;
     }
 
+    private void OnJointBreak(float breakForce)
+    {
+        Debug.Log("The fixed joint broke!");
+        GameObject.Find("spbtm").GetComponent<funcHandle>().exchange(1);
+    }
+
     protected void handCtrl()
     {
         //手臂延长
@@ -72,11 +78,14 @@ public class PickUp : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         //if (isRejecting) return;
-        handCanElong = 0;
-        Debug.Log("collied");
+        if(handCanElong == 1) handCanElong = 0;
+        //Debug.Log("collied");
         if (collision.gameObject.tag == "pickable")
         {
-            
+            if(collision.gameObject.name == "lock_up_real")
+            {
+                collision.gameObject.GetComponent<Rigidbody>().useGravity = true;
+            }
             if (this.GetComponent<FixedJoint>() != null)
             {
                 Debug.Log("connected");

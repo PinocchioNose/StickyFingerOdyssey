@@ -38,6 +38,7 @@ public class BoatControlTrigger : MonoBehaviour
         {
             Debug.Log("exit");
             ifEnterTrigger = false;
+            ifSure = false;
         }
     }
 
