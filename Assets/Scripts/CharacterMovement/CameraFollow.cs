@@ -53,7 +53,8 @@ public class CameraFollow : BaseAction
             Time.deltaTime
         );
 
-        TourCamera.LookAt(character_transform, Vector3.up);
+        // TourCamera.LookAt(character_transform, Vector3.up);
+        TourCamera.LookAt(character_transform.position);
     }
 
     protected new void Start()
