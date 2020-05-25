@@ -26,14 +26,14 @@ public class ragmove : MonoBehaviour
         // Debug.Log(calfTrans[1].name);
         // Debug.Log(calfTrans[1].name);
         // Debug.Log(calfTrans[1].localEulerAngles.x);
-        if(calfTrans[1].localEulerAngles.x > 180){
-            // Debug.Log("rotation error");
-            // calfTrans[1].localEulerAngles = new Vector3(0, 0, 0);
-            // modifyAng = calfTrans[1].localEulerAngles;
-            // modifyAng.x = 0;
-            // calfTrans[1].localEulerAngles = modifyAng;
-            // calfTrans[1].localEulerAngles = new Vector3(0, y, z);
-        }
+        // if(calfTrans[1].localEulerAngles.x > 180){
+        //     // Debug.Log("rotation error");
+        //     // calfTrans[1].localEulerAngles = new Vector3(0, 0, 0);
+        //     // modifyAng = calfTrans[1].localEulerAngles;
+        //     // modifyAng.x = 0;
+        //     // calfTrans[1].localEulerAngles = modifyAng;
+        //     // calfTrans[1].localEulerAngles = new Vector3(0, y, z);
+        // }
     
         if(moveForce.targetPosition > 180)
             moveForce.targetPosition -= 360;
