@@ -25,7 +25,7 @@ public class Controller : MonoBehaviour
     // public Transform checkRootable; 
     public bool Correction;
     [Range(0,5)]
-    public float sensitivity;
+    public float sensitivity = 1f;
     // public float MinRoot, MaxRoot;
     // public float slope; 
     // private float pretime; 
@@ -198,24 +198,42 @@ public class Controller : MonoBehaviour
     {
         //Debug.Log("Shoulder~");
         Vector3 temp = fatherArm1.transform.localEulerAngles;
-        if(temp.z < 30 && Input.GetAxis("Mouse Y") < 0)
+        //Debug.Log(temp);
+        //Vector3 tempAnother = fatherArm1.transform.eulerAngles;
+
+        //Debug.Log(temp.z);
+        //fatherArm1.transform.Rotate(new Vector3(0.0f, 0.0f, -Input.GetAxis("Mouse Y") * rotateSpeed * Time.deltaTime));
+        //fatherArm2.transform.Rotate(new Vector3(0.0f, 0.0f, Input.GetAxis("Mouse Y") * rotateSpeed * Time.deltaTime));
+        float tempZ = temp.z;
+        if(tempZ<=360 && tempZ>270)
         {
-            fatherArm1.transform.Rotate(new Vector3(0.0f, 0.0f, -Input.GetAxis("Mouse Y") * rotateSpeed * Time.deltaTime));
-            fatherArm2.transform.Rotate(new Vector3(0.0f, 0.0f, Input.GetAxis("Mouse Y") * rotateSpeed * Time.deltaTime));
+            tempZ = tempZ - 360;
         }
-        else if(temp.z > 150 && Input.GetAxis("Mouse Y") > 0)
+        //Debug.Log(tempZ);
+        if (tempZ >45 && Input.GetAxis("Mouse Y") < 0)
         {
-            fatherArm1.transform.Rotate(new Vector3(0.0f, 0.0f, -Input.GetAxis("Mouse Y") * rotateSpeed * Time.deltaTime));
-            fatherArm2.transform.Rotate(new Vector3(0.0f, 0.0f, Input.GetAxis("Mouse Y") * rotateSpeed * Time.deltaTime));
+            Debug.Log(1);
+            Debug.Log(tempZ);
+            fatherArm1.transform.Rotate(new Vector3(0.0f, 0.0f, Input.GetAxis("Mouse Y") * rotateSpeed * Time.deltaTime));
+            fatherArm2.transform.Rotate(new Vector3(0.0f, 0.0f, -Input.GetAxis("Mouse Y") * rotateSpeed * Time.deltaTime));
         }
-        else if(temp.z >=30 && temp.z <=150)
+        else if (tempZ < -45 && Input.GetAxis("Mouse Y") > 0)
         {
-            fatherArm1.transform.Rotate(new Vector3(0.0f, 0.0f, -Input.GetAxis("Mouse Y") * rotateSpeed * Time.deltaTime));
-            fatherArm2.transform.Rotate(new Vector3(0.0f, 0.0f, Input.GetAxis("Mouse Y") * rotateSpeed * Time.deltaTime));
+            Debug.Log(2);
+            Debug.Log(tempZ);
+            fatherArm1.transform.Rotate(new Vector3(0.0f, 0.0f, Input.GetAxis("Mouse Y") * rotateSpeed * Time.deltaTime));
+            fatherArm2.transform.Rotate(new Vector3(0.0f, 0.0f, -Input.GetAxis("Mouse Y") * rotateSpeed * Time.deltaTime));
         }
-        
-        
-        
+        else if (tempZ >= -45 && tempZ <= 45)
+        {
+            Debug.Log(3);
+            Debug.Log(tempZ);
+            fatherArm1.transform.Rotate(new Vector3(0.0f, 0.0f, Input.GetAxis("Mouse Y") * rotateSpeed * Time.deltaTime));
+            fatherArm2.transform.Rotate(new Vector3(0.0f, 0.0f, -Input.GetAxis("Mouse Y") * rotateSpeed * Time.deltaTime));
+        }
+
+
+
     }
 
     protected void Start()
@@ -247,7 +265,7 @@ public class Controller : MonoBehaviour
                 // MoveCtrl();
                 //handCtrl();
                 JumpCtrl();
-                shoulderCtrl();
+                
             }
             // rotate
             transform.Rotate(0, Input.GetAxis("Mouse X") * 5.0f * sensitivity, 0);
@@ -260,7 +278,7 @@ public class Controller : MonoBehaviour
 
     void Update()
     {
-        
+        shoulderCtrl();
     }
 
     
