@@ -221,7 +221,7 @@ public class Controller : MonoBehaviour
     protected void Start()
     {
         _Velocity = GetComponent<Rigidbody>().velocity.magnitude;
-        rb = GetComponent<Rigidbody>();
+        rb = this.gameObject.GetComponent<Rigidbody>();
         centralCapcollide = GetComponent<CapsuleCollider>();
 
         hs1 = hj1.spring;
