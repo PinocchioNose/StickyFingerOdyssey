@@ -212,22 +212,16 @@ public class Controller : MonoBehaviour
         //Debug.Log(tempZ);
         if (tempZ >45 && Input.GetAxis("Mouse Y") < 0)
         {
-            Debug.Log(1);
-            Debug.Log(tempZ);
             fatherArm1.transform.Rotate(new Vector3(0.0f, 0.0f, Input.GetAxis("Mouse Y") * rotateSpeed * Time.deltaTime));
             fatherArm2.transform.Rotate(new Vector3(0.0f, 0.0f, -Input.GetAxis("Mouse Y") * rotateSpeed * Time.deltaTime));
         }
         else if (tempZ < -45 && Input.GetAxis("Mouse Y") > 0)
         {
-            Debug.Log(2);
-            Debug.Log(tempZ);
             fatherArm1.transform.Rotate(new Vector3(0.0f, 0.0f, Input.GetAxis("Mouse Y") * rotateSpeed * Time.deltaTime));
             fatherArm2.transform.Rotate(new Vector3(0.0f, 0.0f, -Input.GetAxis("Mouse Y") * rotateSpeed * Time.deltaTime));
         }
         else if (tempZ >= -45 && tempZ <= 45)
         {
-            Debug.Log(3);
-            Debug.Log(tempZ);
             fatherArm1.transform.Rotate(new Vector3(0.0f, 0.0f, Input.GetAxis("Mouse Y") * rotateSpeed * Time.deltaTime));
             fatherArm2.transform.Rotate(new Vector3(0.0f, 0.0f, -Input.GetAxis("Mouse Y") * rotateSpeed * Time.deltaTime));
         }

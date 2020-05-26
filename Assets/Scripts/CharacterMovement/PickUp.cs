@@ -78,14 +78,15 @@ public class PickUp : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         //if (isRejecting) return;
+        Debug.Log("Left Hand Collied");
         if(handCanElong == 1) handCanElong = 0;
         //Debug.Log("collied");
         if (collision.gameObject.tag == "pickable")
         {
-            if(collision.gameObject.name == "lock_up_real")
-            {
-                collision.gameObject.GetComponent<Rigidbody>().useGravity = true;
-            }
+            //if(collision.gameObject.name == "lock_up_real")
+            //{
+            //    collision.gameObject.GetComponent<Rigidbody>().useGravity = true;
+            //}
             if (this.GetComponent<FixedJoint>() != null)
             {
                 Debug.Log("connected");

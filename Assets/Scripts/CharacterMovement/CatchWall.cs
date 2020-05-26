@@ -26,14 +26,16 @@ public class CatchWall : MonoBehaviour
     private GameObject catchedObject;
 
     //回收参数
-    private float minRetrieveDist = 0.7f;
+    private float minRetrieveDist = 10f;
     private flyStatus status = flyStatus.standBy;
     private Vector3 lastPos;
     private Vector3 originPos;
     private Quaternion originRotate;
 
-    private float rotateSpeed = 90.0f;
-    private float retrieveSpeed = 2.0f;
+    public float rotateSpeed = 90.0f;
+    public float retrieveSpeed = 2.0f;
+
+    public float maxRange = 50f;
 
 
     //timer
@@ -90,6 +92,7 @@ public class CatchWall : MonoBehaviour
     //建立勾爪锚点
     void OnCollisionEnter(Collision col)
     {
+        Debug.Log("Right hand collied");
         if(isRejecting)
         {
             return;
@@ -184,6 +187,7 @@ public class CatchWall : MonoBehaviour
         dist2 = (tempVector - originPos).magnitude;
         if(dist1 > dist2)
         {
+            Debug.Log("should retreive");
             status = flyStatus.approach;
             if (dist2 < minRetrieveDist * minRetrieveDist && this.GetComponent<FixedJoint>() == null)
             {
@@ -207,9 +211,10 @@ public class CatchWall : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        retrieveMonitor();
+        
         // 拉伸太多就会收回
-        if ((this.transform.localPosition - originPos).magnitude >= 1.2)
+        if ((this.transform.localPosition - originPos).magnitude >= 50)
         {
             if (this.GetComponent<FixedJoint>() != null)
             {
@@ -218,8 +223,12 @@ public class CatchWall : MonoBehaviour
                 Debug.Log("destoryed");
             }
             this.GetComponent<Rigidbody>().isKinematic = true;
-            transform.localRotation = originRotate;
-            transform.localPosition = originPos;
+            Debug.Log("too long");
+            //Debug.Log((this.transform.localPosition - originPos).magnitude);
+            //transform.localRotation = originRotate;
+            //transform.localPosition = originPos;
+            transform.localRotation = Quaternion.Slerp(transform.localRotation, originRotate, rotateSpeed * Time.deltaTime);
+            transform.localPosition = Vector3.Lerp(transform.localPosition, originPos, retrieveSpeed * Time.deltaTime);
             catchlock = true;
         }
         // 如果手臂末端离抓取点太远也立即收回
@@ -246,13 +255,14 @@ public class CatchWall : MonoBehaviour
         }
         if (!isRejecting)
         {
-            retrieveMonitor();
+            //retrieveMonitor();
             //retrieve();
             if (Input.GetMouseButtonDown(1))
             {
                 //发射勾爪
                 
                 Rigidbody rb = this.GetComponent<Rigidbody>();
+                if (rb == null) Debug.Log("No rigidBody");
                 rb.isKinematic = false;
                 rb.AddForce(this.transform.up * strength, ForceMode.Impulse);
                 Debug.Log("232:go!");
@@ -279,8 +289,10 @@ public class CatchWall : MonoBehaviour
         }
         else
         {
+            // isRejecting == true
             if(status != flyStatus.standBy)
             {
+                Debug.Log("isRejecting 288");
                 this.GetComponent<Rigidbody>().isKinematic = true;
                 transform.localRotation = Quaternion.Slerp(transform.localRotation, originRotate, rotateSpeed * Time.deltaTime);
                 transform.localPosition = Vector3.Lerp(transform.localPosition, originPos, retrieveSpeed * Time.deltaTime);
