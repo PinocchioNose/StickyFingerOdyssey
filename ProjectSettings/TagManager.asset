@@ -8,6 +8,7 @@ TagManager:
   - Water
   - catchable
   - torso
+  - Floor
   layers:
   - Default
   - TransparentFX
@@ -19,7 +20,7 @@ TagManager:
   - 
   - ragdoll
   - ragdoll1
-  - 
+  - postprocessing
   - 
   - 
   - 
