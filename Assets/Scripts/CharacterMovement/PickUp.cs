@@ -74,14 +74,12 @@ public class PickUp : MonoBehaviour
 
 
     }
-
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        //if (isRejecting) return;
         Debug.Log("Left Hand Collied");
-        if(handCanElong == 1) handCanElong = 0;
+        if (handCanElong == 1) handCanElong = 0;
         //Debug.Log("collied");
-        if (collision.gameObject.tag == "pickable")
+        if (other.gameObject.tag == "pickable")
         {
             //if(collision.gameObject.name == "lock_up_real")
             //{
@@ -90,10 +88,29 @@ public class PickUp : MonoBehaviour
             if (this.GetComponent<FixedJoint>() != null)
             {
                 Debug.Log("connected");
-                this.GetComponent<FixedJoint>().connectedBody = collision.gameObject.GetComponent<Rigidbody>();
+                this.GetComponent<FixedJoint>().connectedBody = other.gameObject.GetComponent<Rigidbody>();
             }
         }
     }
+    //private void OnCollisionEnter(Collision collision)
+    //{
+    //    //if (isRejecting) return;
+    //    Debug.Log("Left Hand Collied");
+    //    if(handCanElong == 1) handCanElong = 0;
+    //    //Debug.Log("collied");
+    //    if (collision.gameObject.tag == "pickable")
+    //    {
+    //        //if(collision.gameObject.name == "lock_up_real")
+    //        //{
+    //        //    collision.gameObject.GetComponent<Rigidbody>().useGravity = true;
+    //        //}
+    //        if (this.GetComponent<FixedJoint>() != null)
+    //        {
+    //            Debug.Log("connected");
+    //            this.GetComponent<FixedJoint>().connectedBody = collision.gameObject.GetComponent<Rigidbody>();
+    //        }
+    //    }
+    //}
 
     // Update is called once per frame
     void Update()
