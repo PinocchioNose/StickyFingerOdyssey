@@ -29,7 +29,7 @@ public class CollideInput : MonoBehaviour
     private void OnCollisionEnter(Collision collision){
         ContactPoint CPoint = collision.contacts[0];
         Vector3 point = CPoint.point;
-        forcePoint=point+CPoint.normal*forceOffset;
+        forcePoint=point-CPoint.normal*forceOffset;
         deformFlag=true;
     }
 }
