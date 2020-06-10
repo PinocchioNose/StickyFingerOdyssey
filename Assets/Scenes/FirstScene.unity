@@ -19787,7 +19787,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fc8c243ae8cd7c47be33575d7d0c506, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxArmRange: 1.3
+  maxArmRange: 1.4
   leftArm2: {fileID: 3038200964066390586}
   elongSpeed: 1
 --- !u!138 &3038200964066390589
