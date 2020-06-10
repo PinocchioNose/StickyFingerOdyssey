@@ -8,7 +8,7 @@ public class BoatControlTrigger : MonoBehaviour
     private bool ifSure = false; // if user want to drive the boat
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("torso"))
+        if (other.gameObject.CompareTag("Player"))
         {
             if (ifSure)
             {
@@ -21,7 +21,7 @@ public class BoatControlTrigger : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.CompareTag("torso"))
+        if (other.gameObject.CompareTag("Player"))
         {
             if (ifSure)
             {
@@ -34,7 +34,7 @@ public class BoatControlTrigger : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.CompareTag("torso"))
+        if (other.gameObject.CompareTag("Player"))
         {
             Debug.Log("exit");
             ifEnterTrigger = false;
