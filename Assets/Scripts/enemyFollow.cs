@@ -39,7 +39,7 @@ public class enemyFollow : MonoBehaviour
         }
         RaycastHit hitinfo;
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-        Debug.Log(players[0].transform.Find("Armature/spbtm").name);
+        //Debug.Log(players[0].transform.Find("Armature/spbtm").name);
         /*
             todo:
             use cast while random rotating,
