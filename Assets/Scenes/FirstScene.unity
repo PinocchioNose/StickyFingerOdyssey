@@ -9864,6 +9864,7 @@ GameObject:
   - component: {fileID: 1639677096}
   - component: {fileID: 1639677101}
   - component: {fileID: 1639677102}
+  - component: {fileID: 1639677103}
   m_Layer: 0
   m_Name: Tour Camera
   m_TagString: MainCamera
@@ -10053,6 +10054,34 @@ MonoBehaviour:
   m_BeforeTransparentBundles: []
   m_BeforeStackBundles: []
   m_AfterStackBundles: []
+--- !u!114 &1639677103
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1639677095}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a604c9b88529447449307a2722225f49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  center: {x: 0.26, y: 0.03}
+  radius: 0
+  impactColor: {r: 1, g: 0, b: 0.4375, a: 0.8784314}
+  impactRadius: 0
+  impactRadius1: 0
+  isGray: 0
+  wave_intensity: 0.01
+  wave_shape: 0.3
+  twist_intensity: 0.01
+  twist_speed: 0.2
+  blur_intensity: 0.24
+  blur_radius: 1.6
+  colorShader: {fileID: 4800000, guid: 6380396eb3c26cf49a08fe6ceeef06a5, type: 3}
+  blurShader: {fileID: 4800000, guid: d1db9a33f280ad94cbe4b6c6133f0047, type: 3}
+  tex: {fileID: 2800000, guid: f67ddc53b9812eb48b1404b8c9602105, type: 3}
+  testImage: {fileID: 0}
 --- !u!1 &1665364483
 GameObject:
   m_ObjectHideFlags: 0

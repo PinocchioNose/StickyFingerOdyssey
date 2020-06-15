@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityStandardAssets.ImageEffects;
 
 public class Controller : MonoBehaviour
 {
@@ -245,8 +246,8 @@ public class Controller : MonoBehaviour
 
     void FixedUpdate()
     {
-        // not driving and not dying
-        if (!Morto)
+        // not driving and not dying and not pause
+        if (!Morto && !TheWorld.ifPause)
         {
             if (BoatControlTrigger.ifEnterTrigger == false)
             {
