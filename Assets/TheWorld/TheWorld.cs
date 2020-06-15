@@ -35,6 +35,14 @@ namespace UnityStandardAssets.ImageEffects
 
         static public bool ifPause = false; // 游戏是否暂停
 
+        // 暂停时的spbtm状态
+        private GameObject spbtm;
+        private Vector3 spbtm_speed;
+        private Vector3 spbtm_rspeed;
+        private Vector3 spbtm_pos;
+        private Quaternion spbtm_rot;
+
+
         RenderTexture mySource;
         public override bool CheckResources()
         {
@@ -70,6 +78,7 @@ namespace UnityStandardAssets.ImageEffects
             DOTween.To(() => radius, x => radius = x, 0, 0.5f).SetEase(Ease.InCubic);
             DOTween.To(() => impactRadius, x => impactRadius = x, 0, 0.5f).SetEase(Ease.InCubic);
             DOTween.To(() => impactRadius, x => impactRadius = x, 0, 0.6f).SetEase(Ease.InCubic);
+            Time.timeScale = 0;
         }
 
 
@@ -116,11 +125,25 @@ namespace UnityStandardAssets.ImageEffects
                     RenderTexture.active = mySource;
                     Graphics.Blit(testImage, mySource);
                     StartCoroutine(TimeStop());
+                    spbtm = GameObject.Find("spbtm");
+                    spbtm_pos = spbtm.transform.position;
+                    spbtm_rot = spbtm.transform.rotation;
+                    spbtm_speed = spbtm.GetComponent<Rigidbody>().velocity;
+                    spbtm_rspeed = spbtm.GetComponent<Rigidbody>().angularVelocity;
+                    Debug.Log("velocity: " + spbtm_speed);
+                    Debug.Log("angularvelocity: " + spbtm_rspeed);
                 }
                 else
                 {
                     testImage = null;
                     isGray = false;
+                    Time.timeScale = 1;
+                    spbtm = GameObject.Find("spbtm");
+                    spbtm.transform.position = spbtm_pos;
+                    spbtm.transform.rotation = spbtm_rot;
+                    Debug.Log("now, velocity: " + spbtm_speed);
+                    spbtm.GetComponent<Rigidbody>().velocity = spbtm_speed * 4;
+                    spbtm.GetComponent<Rigidbody>().angularVelocity = spbtm_rspeed;
                 }
             }
         }
