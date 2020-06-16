@@ -1,0 +1,179 @@
+fileFormatVersion: 2
+guid: dc7133ef0a2be294680ade720aea7476
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: balance_2
+    100002: balance_3
+    100004: basket
+    100006: basket_1
+    100008: basket_2
+    100010: basket_2_2
+    100012: connect
+    100014: connect1
+    100016: connect2
+    100018: connect3
+    100020: connect_2
+    100022: connect_3
+    100024: support
+    100026: support0
+    100028: support1
+    100030: support2
+    100032: support3
+    100034: support_1
+    100036: support_1_2
+    100038: support_2
+    100040: support_2_2
+    100042: //RootNode
+    400000: balance_2
+    400002: balance_3
+    400004: basket
+    400006: basket_1
+    400008: basket_2
+    400010: basket_2_2
+    400012: connect
+    400014: connect1
+    400016: connect2
+    400018: connect3
+    400020: connect_2
+    400022: connect_3
+    400024: support
+    400026: support0
+    400028: support1
+    400030: support2
+    400032: support3
+    400034: support_1
+    400036: support_1_2
+    400038: support_2
+    400040: support_2_2
+    400042: //RootNode
+    2100000: wood
+    2100002: balance
+    2300000: balance_3
+    2300002: basket
+    2300004: basket_2_2
+    2300006: connect
+    2300008: connect1
+    2300010: connect2
+    2300012: connect3
+    2300014: connect_2
+    2300016: connect_3
+    2300018: support0
+    2300020: support_1
+    2300022: support_1_2
+    2300024: support_2
+    2300026: support_2_2
+    3300000: balance_3
+    3300002: basket
+    3300004: basket_2_2
+    3300006: connect
+    3300008: connect1
+    3300010: connect2
+    3300012: connect3
+    3300014: connect_2
+    3300016: connect_3
+    3300018: support0
+    3300020: support_1
+    3300022: support_1_2
+    3300024: support_2
+    3300026: support_2_2
+    4300000: support_1
+    4300002: support_2
+    4300004: support_1_2
+    4300006: support_2_2
+    4300008: connect
+    4300010: support0
+    4300012: balance_3
+    4300014: connect1
+    4300016: connect2
+    4300018: connect3
+    4300020: basket
+    4300022: connect_2
+    4300024: basket_2_2
+    4300026: connect_3
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

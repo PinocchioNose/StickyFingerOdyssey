@@ -15,6 +15,14 @@ public class PickUp : MonoBehaviour
 
     private int handCanElong; // 1只能伸长，0保持暂停，-1只能缩短
     private int nextHandStatus;
+
+    private GameObject ParticleSystem;
+
+    private void Awake()
+    {
+        ParticleSystem = GameObject.Find("ParticleTrailL");
+    }
+
     void Start()
     {
         handCanElong = 0;
@@ -22,6 +30,8 @@ public class PickUp : MonoBehaviour
 
         isRejecting = false;
         armRange = 0.0f;
+
+        ParticleSystem.GetComponent<ParticleSystem>().Stop();
     }
     
     public void setReject(bool sta)
@@ -43,11 +53,13 @@ public class PickUp : MonoBehaviour
         {
             if (armRange <= maxArmRange)
             {
+                
                 leftArm2.transform.Translate(new Vector3(0, 1, 0)
                     * elongSpeed * Time.deltaTime, Space.Self);
 
                 armRange += elongSpeed * Time.deltaTime;
                 //Debug.Log(armRange);
+                
             }
             else
             {
@@ -59,11 +71,12 @@ public class PickUp : MonoBehaviour
         {
             if (armRange > 0)
             {
-
+                
                 leftArm2.transform.Translate(new Vector3(0, 1, 0)
                     * -elongSpeed * Time.deltaTime, Space.Self);
                 armRange -= elongSpeed * Time.deltaTime;
                 //Debug.Log(armRange);
+                
             }
             else if(armRange <= 0)
             {
@@ -112,7 +125,8 @@ public class PickUp : MonoBehaviour
     //    }
     //}
 
-    // Update is called once per frame
+    bool isPlayingParticle = false;
+    
     void Update()
     {
         //if(!isRejecting)
@@ -140,6 +154,12 @@ public class PickUp : MonoBehaviour
         //}
         if(Input.GetMouseButtonDown(0))
         {
+            if (isPlayingParticle == false)
+            {
+                ParticleSystem.GetComponent<ParticleSystem>().Play();
+                isPlayingParticle = true;
+            }
+                
             if (nextHandStatus == 0)
             {
                 handCanElong = 1;
@@ -150,9 +170,18 @@ public class PickUp : MonoBehaviour
                 handCanElong = nextHandStatus;
                 nextHandStatus = -nextHandStatus;
             }
-            
         }
+        if (handCanElong == 0)
+        {
+            isPlayingParticle = false;
+            ParticleSystem.GetComponent<ParticleSystem>().Stop();
+        }
+            
+        //else
+        //    ParticleSystem.GetComponent<ParticleSystem>().Play();
         handCtrl();
+
+
         //if(Input.GetKeyDown(KeyCode.Q))
         //{
         //    if(this.GetComponent<FixedJoint>() != null)

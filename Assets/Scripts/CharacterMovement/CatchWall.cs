@@ -48,6 +48,13 @@ public class CatchWall : MonoBehaviour
     //表示是否有粘性
     private bool sticky;
 
+    private GameObject ParticleSystem;
+
+    private void Awake()
+    {
+        ParticleSystem = GameObject.Find("ParticleTrailR");
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -175,7 +182,7 @@ public class CatchWall : MonoBehaviour
         transform.localRotation = Quaternion.Slerp(transform.localRotation, originRotate, rotateSpeed * Time.deltaTime);
         transform.localPosition = Vector3.Lerp(transform.localPosition, originPos, retrieveSpeed * Time.deltaTime);
         catchlock = true;
-
+        ParticleSystem.GetComponent<ParticleSystem>().Play();
     }
 
     //时刻监视回收状态
@@ -230,6 +237,7 @@ public class CatchWall : MonoBehaviour
             transform.localRotation = Quaternion.Slerp(transform.localRotation, originRotate, rotateSpeed * Time.deltaTime);
             transform.localPosition = Vector3.Lerp(transform.localPosition, originPos, retrieveSpeed * Time.deltaTime);
             catchlock = true;
+            ParticleSystem.GetComponent<ParticleSystem>().Play();
         }
         // 如果手臂末端离抓取点太远也立即收回
         if ((this.transform.position - contactPoint).magnitude >= 0.5)
@@ -244,7 +252,8 @@ public class CatchWall : MonoBehaviour
                 transform.localPosition = originPos;
                 catchlock = true;
             }
-            
+            ParticleSystem.GetComponent<ParticleSystem>().Play();
+
         }
 
         if (Input.GetKeyDown(KeyCode.M))
@@ -266,6 +275,8 @@ public class CatchWall : MonoBehaviour
                 rb.isKinematic = false;
                 rb.AddForce(this.transform.up * strength, ForceMode.Impulse);
                 Debug.Log("232:go!");
+
+                ParticleSystem.GetComponent<ParticleSystem>().Play();
             }
             if (Input.GetMouseButtonDown(1) && this.GetComponent<FixedJoint>() != null)
             {
@@ -280,7 +291,7 @@ public class CatchWall : MonoBehaviour
                 {
                     // Debug.Log("Fixed Joint doesn't exist!");
                 }
-                
+                ParticleSystem.GetComponent<ParticleSystem>().Play();
             }
             if (Input.GetKeyDown(KeyCode.Space))
             {
