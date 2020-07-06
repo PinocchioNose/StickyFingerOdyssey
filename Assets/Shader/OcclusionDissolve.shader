@@ -8,7 +8,7 @@ Shader "ApcShader/OcclusionDissolve"
 		_DissolveColorB("Dissolve Color B", Color) = (0.3,0.3,0.3,1)
 		_MainTex("Base 2D", 2D) = "white"{}
 		_DissolveMap("DissolveMap", 2D) = "white"{}
-		_DissolveThreshold("DissolveThreshold", Range(0,2)) = 2
+		_DissolveThreshold("DissolveThreshold", Range(0,5)) = 3
 		_ColorFactorA("ColorFactorA", Range(0,1)) = 0.7
 		_ColorFactorB("ColorFactorB", Range(0,1)) = 0.8
 		_DissolveDistance("DissolveDistance", Range(0, 20)) = 3

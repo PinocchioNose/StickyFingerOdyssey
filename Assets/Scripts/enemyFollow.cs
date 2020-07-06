@@ -30,6 +30,9 @@ public class enemyFollow : MonoBehaviour
         {
             // Debug.DrawLine(init_pos, init_pos + range * range_forward, Color.red);
             // Debug.DrawLine(init_pos, init_pos + range * range_right, Color.red);
+
+            Vector3 init_pos = transform.position;
+
             Debug.DrawLine(init_pos, A, Color.red);
             Debug.DrawLine(init_pos, B, Color.red);
             Debug.DrawLine(init_pos, D, Color.red);
@@ -57,7 +60,7 @@ public class enemyFollow : MonoBehaviour
         // transform.LookAt(toFollow);
         transform.rotation = Quaternion.LookRotation(toFollow.position-transform.position)/*Quaternion.AngleAxis(90, transform.up)*/;
         
-        transform.Translate(transform.forward * 1/10 * Time.deltaTime, Space.World);
+        transform.Translate(transform.forward * 3/10 * Time.deltaTime, Space.World);
     }
     bool inRange(Vector3 pos){
         float cond1 = Vector3.Dot(Vector3.Cross(B - A, pos - A), Vector3.Cross(D - C, pos - C));
