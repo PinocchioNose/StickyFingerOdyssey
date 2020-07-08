@@ -18,6 +18,9 @@ public class Controller : MonoBehaviour
     [Space(20)]
     public float Resist = 10;//collide to kill
     public Animator anim;
+    public Animator Rcrouch;
+    public Animator Lcrouch;
+    
     bool Morto = false;
     public float _Velocity;
 
@@ -109,6 +112,10 @@ public class Controller : MonoBehaviour
             if (jump_force < Y_Force_Max)
                 jump_force += increment_ratio;
             isCharging = true;
+
+            // Rcrouch.SetBool("Rcrouch", true);
+            // Lcrouch.SetBool("Lcrouch", true);
+            
             //Debug.Log("jump_force = " + jump_force);
         }
 
@@ -118,6 +125,8 @@ public class Controller : MonoBehaviour
             isCharging = false;
             jump_vector = new Vector3(0, jump_force * Ratio, 0);
             jump_vector += this.transform.forward * jump_force;
+            // Rcrouch.SetBool("Rcrouch", false);
+            // Lcrouch.SetBool("Lcrouch", false);
         }
         
     }

@@ -58,7 +58,9 @@ public class enemyFollow : MonoBehaviour
     }
     void FollowTrans(Transform toFollow,int speed = 1){
         // transform.LookAt(toFollow);
-        transform.rotation = Quaternion.LookRotation(toFollow.position-transform.position)/*Quaternion.AngleAxis(90, transform.up)*/;
+        Vector3 toTrans = toFollow.position;
+        toTrans.y = transform.position.y;
+        transform.rotation = Quaternion.LookRotation(toTrans-transform.position)/*Quaternion.AngleAxis(90, transform.up)*/;
         
         transform.Translate(transform.forward * 3/10 * Time.deltaTime, Space.World);
     }
