@@ -291,7 +291,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04f8e0db2422b0642874832b5ac9853a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TimeCount: 1
+  TimeCount: -1
   forceOffset: 0.1
   force: 5
 --- !u!114 &39651054
@@ -2541,6 +2541,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 100000, guid: 4244f9007ba5d2f4a92f581cf97f737b, type: 3}
+      propertyPath: m_Name
+      value: part2
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 4244f9007ba5d2f4a92f581cf97f737b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.31
@@ -2596,10 +2600,6 @@ PrefabInstance:
     - target: {fileID: 400000, guid: 4244f9007ba5d2f4a92f581cf97f737b, type: 3}
       propertyPath: m_LocalScale.z
       value: 0.15402
-      objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: 4244f9007ba5d2f4a92f581cf97f737b, type: 3}
-      propertyPath: m_Name
-      value: part2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4244f9007ba5d2f4a92f581cf97f737b, type: 3}
